@@ -1,0 +1,30 @@
+name: SSOT validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify required files
+        shell: bash
+        run: |
+          test -f SSOT.md
+          test -f README.md
+          test -f .gitignore
+          test -f powershell/bootstrap-qslc-ssot.ps1
+      - name: Reject common exposed secrets
+        shell: bash
+        run: |
+          if git grep -nEI '(BEGIN (RSA|OPENSSH|EC) PRIVATE KEY|ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9]{20,})'; then
+            echo 'Potential secret detected.'
+            exit 1
+          fi
