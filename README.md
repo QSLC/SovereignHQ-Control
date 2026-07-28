@@ -17,6 +17,12 @@ Default Windows path: `C:\QSLC\QSLC-SSOT`
 
 Run `powershell/bootstrap-qslc-ssot.ps1` from an elevated PowerShell session to create or repair the local structure, validate prerequisites, initialize Git, configure the remote, and produce an audit report.
 
+## Stripe CLI setup
+
+See `docs/stripe-cli-setup.md` (07_STRIPE_SALES) for installing and
+authenticating the Stripe CLI. Run `scripts/setup-stripe-cli.sh` to install
+it. Never pass API keys or access tokens as command-line arguments.
+
 ## Security
 
 Never commit secrets, tokens, payroll exports containing protected personal data, bank documents, `.env` files, private keys, or raw identity documents. Store evidence in approved protected storage and record only evidence references in this repository.
