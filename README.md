@@ -17,6 +17,15 @@ Default Windows path: `C:\QSLC\QSLC-SSOT`
 
 Run `powershell/bootstrap-qslc-ssot.ps1` from an elevated PowerShell session to create or repair the local structure, validate prerequisites, initialize Git, configure the remote, and produce an audit report.
 
+## QSLC one-shot build agent
+
+`powershell/QSLC-OneShot-Build-Agent.ps1` inventories local files, flags
+(masked, read-only) likely secrets/card data/sensitive screenshots, and
+scaffolds the QSLC production monorepo (pricing tiers, Stripe Checkout
+scaffolding, a marketing-claims lint, and a release-validation gate that
+never fabricates a "deployed" status). See
+`docs/qslc-oneshot-build-agent.md`.
+
 ## Stripe CLI setup
 
 See `docs/stripe-cli-setup.md` (07_STRIPE_SALES) for installing and
