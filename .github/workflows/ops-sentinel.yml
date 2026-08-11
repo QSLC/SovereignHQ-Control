@@ -27,7 +27,14 @@ jobs:
           set -euo pipefail
           mkdir -p artifacts
           : > artifacts/health.txt
-          for url in "$QSLC_PRIMARY_URL" "$QSLC_API_URL"; do
+
+          endpoints=(
+            "${QSLC_PRIMARY_URL:-https://qslc-sovereign-command.lovable.app}"
+            "${QSLC_API_URL:-https://fastapi-python-boilerplate-mcoe5ag0j-qslc-16cb8a0f.vercel.app}"
+            "https://chatbot-kc5vgpxhg-qslc.vercel.app"
+          )
+
+          for url in "${endpoints[@]}"; do
             [ -z "$url" ] && continue
             code=$(curl -L -sS -o /dev/null -w '%{http_code}' --max-time 20 "$url" || true)
             printf '%s %s\n' "$code" "$url" | tee -a artifacts/health.txt
@@ -64,6 +71,7 @@ jobs:
           echo '- Registry: validated' >> "$GITHUB_STEP_SUMMARY"
           echo '- Plaintext secret storage: prohibited' >> "$GITHUB_STEP_SUMMARY"
           echo '- Provider mutations: disabled unless separately authorized and configured' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Cloudflare: connected through ChatGPT; DNS/zone inventory is handled separately from this workflow' >> "$GITHUB_STEP_SUMMARY"
           if [ -f artifacts/health.txt ]; then
             echo '```' >> "$GITHUB_STEP_SUMMARY"
             cat artifacts/health.txt >> "$GITHUB_STEP_SUMMARY"
