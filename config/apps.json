@@ -7,7 +7,11 @@
     {"name":"The Optic Chronicle","id":"6a742889f33a40e33d51957b","source":"s3","status":"owned","deployment":"verify"}
   ],
   "lovable": [
-    {"name":"Sovereign Command","project_id":"5834aa6c-9471-4900-ba93-8d4125a704fd","status":"completed_private","published":false,"role":"primary QSLC command center"}
+    {"name":"Sovereign Command","project_id":"5834aa6c-9471-4900-ba93-8d4125a704fd","status":"deploying","published":true,"url":"https://qslc-sovereign-command.lovable.app","role":"primary QSLC command center"}
+  ],
+  "vercel": [
+    {"name":"chatbot","project_id":"prj_bWXQ8KcueoQqlPOS4YLxofbM7hy5","status":"READY","target":"production","url":"https://chatbot-kc5vgpxhg-qslc.vercel.app"},
+    {"name":"fastapi-python-boilerplate","project_id":"prj_yZF7ifkElPdxe3gmJDvorlKZ2T2o","status":"READY","target":"production","url":"https://fastapi-python-boilerplate-mcoe5ag0j-qslc-16cb8a0f.vercel.app"}
   ],
   "github_repositories": [
     "Sovereign-maxeffort/SovereignHQ-Control",
@@ -27,7 +31,7 @@
   ],
   "integrations": {
     "google_calendar": "authorization_required",
-    "cloudflare": "plugin_connection_required",
+    "cloudflare": "connected_in_chat_2026-08-11",
     "stripe": "connected_in_chat",
     "paychex": "no direct API connection",
     "bluevine": "not linked in Finances"
