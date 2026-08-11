@@ -1,0 +1,36 @@
+{
+  "updated": "2026-08-11",
+  "purpose": "QSLC single registry for apps, repos, deployment and integration status. Never store API keys or full bank credentials here.",
+  "base44": [
+    {"name":"Koda","id":"6a6e1cc24ba71ff80bd081ad","source":"s3","status":"owned","deployment":"verify"},
+    {"name":"Spark互動空間","id":"6a6e0f7b3ae18c3c0b5a0217","source":"s3","status":"owned","deployment":"verify"},
+    {"name":"The Optic Chronicle","id":"6a742889f33a40e33d51957b","source":"s3","status":"owned","deployment":"verify"}
+  ],
+  "lovable": [
+    {"name":"Sovereign Command","project_id":"5834aa6c-9471-4900-ba93-8d4125a704fd","status":"completed_private","published":false,"role":"primary QSLC command center"}
+  ],
+  "github_repositories": [
+    "Sovereign-maxeffort/SovereignHQ-Control",
+    "Sovereign-maxeffort/QSLC_SOVEREIGN_DASHBOARD",
+    "Sovereign-maxeffort/QSLC_sovereign",
+    "Sovereign-maxeffort/sovereign",
+    "Sovereign-maxeffort/evew",
+    "Sovereign-maxeffort/codex-relay",
+    "Sovereign-maxeffort/vite-react-template",
+    "Sovereign-maxeffort/time-billing-template",
+    "Sovereign-maxeffort/gdp-dashboard",
+    "Sovereign-maxeffort/llama3.2",
+    "Sovereign-maxeffort/turbo-console-log",
+    "Sovereign-maxeffort/login",
+    "Sovereign-maxeffort/vscode-mssql",
+    "Sovereign-maxeffort/cli"
+  ],
+  "integrations": {
+    "google_calendar": "authorization_required",
+    "cloudflare": "plugin_connection_required",
+    "stripe": "connected_in_chat",
+    "paychex": "no direct API connection",
+    "bluevine": "not linked in Finances"
+  },
+  "secret_policy": "API keys belong only in provider secret stores or GitHub Actions Secrets/Environment Secrets; never commit plaintext secrets."
+}
