@@ -70,23 +70,20 @@ iPhone (Home Screen PWA)
 - Share > Add to Home Screen
 - App works as a standalone PWA
 
-## PowerShell: Sovereign Agent Stack
+## PowerShell: Sovereign Agent Scripts
 
-`powershell/SOVEREIGN_AGENT.ps1` opens the full QSLC stack in browser tabs:
+### SOVEREIGN_AGENT.ps1
+Opens the full QSLC stack in browser tabs with biometric gate.
 
-1. Biometric gate (Windows Hello)
-2. Base44 Superagent
-3. Base44 Builder
-4. Google AI Studio + Cloud Billing
-5. QSLC SharePoint + SSOT workbook
-6. Copilot + Paychex + ChatGPT
-7. Local EVE Command Center
-8. Run log saved to 05_LOGS
+### SOVEREIGN_AUTO_AGENT.ps1
+Auto-advance version — loops through 15 stack tabs with 3s delay between each.
+- Biometric gate (Windows Hello) before execution
+- Logs each run to 05_LOGS/
+- Daily 8 PM scheduler via Install-AutoAgent-Schedule.ps1
 
-Schedule daily at 8 PM:
-```
-powershell\Install-SovereignAgentSchedule.ps1
-```
+### Install scripts
+- `Install-SovereignAgentSchedule.ps1` — schedules SOVEREIGN_AGENT.ps1 daily at 8 PM
+- `Install-AutoAgent-Schedule.ps1` — schedules SOVEREIGN_AUTO_AGENT.ps1 daily at 8 PM
 
 ## Authority
 
