@@ -2,6 +2,92 @@
 
 Private control repository for Quantum Sovereign Logistics Co. (QSLC).
 
+## Architecture (updated Aug 20 2026)
+
+Free-first stack — no paid builder subscriptions required:
+
+```
+iPhone (Home Screen PWA)
+  |
+  +-> QSLC web app / PWA (app/)
+  |     |- Dashboard: revenue, sales, hours, pay
+  |     |- Store: books, PDFs, templates
+  |     |- Calendar: action items and deadlines
+  |     |- Time Log: billing at $75/hr
+  |     |- Admin: product management
+  |
+  +-> Cloudflare Pages ($0) — free hosting
+  |     |- Unlimited static requests/bandwidth
+  |     |- 500 builds/month
+  |
+  +-> Supabase Free ($0) — database + auth + storage
+  |     |- 500 MB database
+  |     |- 1 GB file storage
+  |     |- 50,000 monthly active users
+  |
+  +-> Stripe ($0 until sale) — payment processing
+  |     |- 2.9% + 30c per transaction
+  |     |- Stripe Checkout redirect flow
+  |
+  +-> GitHub — source code + automation
+```
+
+## Repository structure
+
+| Path | Purpose |
+|------|---------|
+| `app/` | QSLC PWA web app (deploy to Cloudflare Pages) |
+| `app/supabase/schema.sql` | Database schema with RLS policies |
+| `powershell/` | Windows launcher and automation scripts |
+| `scripts/` | Shell scripts (Stripe CLI setup, etc) |
+| `config/` | Configuration files |
+| `docs/` | Documentation |
+| `08_EVIDENCE_INDEX/` | Evidence reference index |
+
+## Deployment
+
+### 1. Supabase
+- Create free project at supabase.com
+- Run `app/supabase/schema.sql` in SQL Editor
+- Copy Project URL + anon key
+
+### 2. Stripe
+- Create account at stripe.com
+- Get publishable key (pk_test_... or pk_live_...)
+
+### 3. Cloudflare Pages
+- Go to pages.cloudflare.com
+- Connect this GitHub repo
+- Build command: (none — static site)
+- Output directory: `app`
+- Add environment variables:
+  - SUPABASE_URL
+  - SUPABASE_ANON_KEY
+  - STRIPE_PUBLISHABLE_KEY
+
+### 4. iPhone
+- Open the Cloudflare Pages URL in Safari
+- Share > Add to Home Screen
+- App works as a standalone PWA
+
+## PowerShell: Sovereign Agent Stack
+
+`powershell/SOVEREIGN_AGENT.ps1` opens the full QSLC stack in browser tabs:
+
+1. Biometric gate (Windows Hello)
+2. Base44 Superagent
+3. Base44 Builder
+4. Google AI Studio + Cloud Billing
+5. QSLC SharePoint + SSOT workbook
+6. Copilot + Paychex + ChatGPT
+7. Local EVE Command Center
+8. Run log saved to 05_LOGS
+
+Schedule daily at 8 PM:
+```
+powershell\Install-SovereignAgentSchedule.ps1
+```
+
 ## Authority
 
 1. `SSOT.md`
@@ -10,27 +96,6 @@ Private control repository for Quantum Sovereign Logistics Co. (QSLC).
 4. Microsoft 365 source documents
 5. Verified emails and attachments
 6. Local mirrors
-
-## Local mirror
-
-Default Windows path: `C:\QSLC\QSLC-SSOT`
-
-Run `powershell/bootstrap-qslc-ssot.ps1` from an elevated PowerShell session to create or repair the local structure, validate prerequisites, initialize Git, configure the remote, and produce an audit report.
-
-## QSLC one-shot build agent
-
-`powershell/QSLC-OneShot-Build-Agent.ps1` inventories local files, flags
-(masked, read-only) likely secrets/card data/sensitive screenshots, and
-scaffolds the QSLC production monorepo (pricing tiers, Stripe Checkout
-scaffolding, a marketing-claims lint, and a release-validation gate that
-never fabricates a "deployed" status). See
-`docs/qslc-oneshot-build-agent.md`.
-
-## Stripe CLI setup
-
-See `docs/stripe-cli-setup.md` (07_STRIPE_SALES) for installing and
-authenticating the Stripe CLI. Run `scripts/setup-stripe-cli.sh` to install
-it. Never pass API keys or access tokens as command-line arguments.
 
 ## Security
 

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0a0e1a">
+  <link rel="manifest" href="manifest.json">
+  <title>SovereignHQ — QSLC</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="logo">SQ</div>
+        <span class="topbar-title">SovereignHQ</span>
+      </div>
+      <div class="topbar-right">
+        <button id="themeToggle" class="icon-btn" title="Toggle theme">◐</button>
+        <div id="userMenu" class="user-menu hidden">
+          <button id="userBtn" class="icon-btn">👤</button>
+          <div id="userDropdown" class="dropdown hidden">
+            <div id="userInfo"></div>
+            <button id="logoutBtn" class="dropdown-item">Sign Out</button>
+          </div>
+        </div>
+        <button id="loginBtn" class="btn btn-sm">Sign In</button>
+      </div>
+    </header>
+
+    <!-- Nav Tabs -->
+    <nav class="nav-tabs" id="navTabs">
+      <button class="nav-tab active" data-view="dashboard">◈ Dashboard</button>
+      <button class="nav-tab" data-view="store">▤ Store</button>
+      <button class="nav-tab" data-view="calendar">⛝ Calendar</button>
+      <button class="nav-tab" data-view="timelog">⏱ Time Log</button>
+      <button class="nav-tab" data-view="admin" id="adminTab" style="display:none">⚙ Admin</button>
+    </nav>
+
+    <!-- Views -->
+    <main class="content" id="content">
+      <!-- Dashboard -->
+      <section class="view active" id="view-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Total Revenue</div>
+            <div class="stat-value" id="statRevenue">$0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Sales</div>
+            <div class="stat-value" id="statSales">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Hours Logged</div>
+            <div class="stat-value" id="statHours">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Pay Calculated</div>
+            <div class="stat-value" id="statPay">$0</div>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Recent Activity</h3>
+          <div id="recentActivity" class="activity-list">
+            <div class="empty-state">Loading...</div>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Upcoming Deadlines</h3>
+          <div id="upcomingDeadlines" class="deadline-list">
+            <div class="empty-state">Loading...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Store -->
+      <section class="view" id="view-store">
+        <div class="store-header">
+          <h2>QSLC Store</h2>
+          <input type="text" id="storeSearch" placeholder="Search products..." class="search-input">
+        </div>
+        <div id="productGrid" class="product-grid">
+          <div class="empty-state">Loading products...</div>
+        </div>
+      </section>
+
+      <!-- Calendar -->
+      <section class="view" id="view-calendar">
+        <div class="calendar-header">
+          <h2>Action Calendar</h2>
+          <button id="addEventBtn" class="btn btn-primary btn-sm">+ Add</button>
+        </div>
+        <div id="calendarList" class="calendar-list">
+          <div class="empty-state">Loading...</div>
+        </div>
+      </section>
+
+      <!-- Time Log -->
+      <section class="view" id="view-timelog">
+        <div class="timelog-header">
+          <h2>Time & Billing</h2>
+          <button id="addTimeBtn" class="btn btn-primary btn-sm">+ Log Time</button>
+        </div>
+        <div class="billing-summary" id="billingSummary">
+          <div class="stat-card">
+            <div class="stat-label">This Period</div>
+            <div class="stat-value" id="periodHours">0 hrs</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Rate</div>
+            <div class="stat-value">$75/hr</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Gross Pay</div>
+            <div class="stat-value" id="periodPay">$0</div>
+          </div>
+        </div>
+        <div id="timeLogList" class="timelog-list">
+          <div class="empty-state">Loading...</div>
+        </div>
+      </section>
+
+      <!-- Admin -->
+      <section class="view" id="view-admin">
+        <h2>Admin Panel</h2>
+        <div class="admin-section">
+          <h3>Add Product</h3>
+          <form id="productForm" class="form">
+            <input type="text" id="productTitle" placeholder="Title" required>
+            <textarea id="productDesc" placeholder="Description"></textarea>
+            <select id="productCategory">
+              <option value="book">Book</option>
+              <option value="pdf">PDF</option>
+              <option value="template">Template</option>
+              <option value="service">Service</option>
+            </select>
+            <input type="number" id="productPrice" placeholder="Price (cents)" required>
+            <input type="text" id="productImage" placeholder="Cover image URL (optional)">
+            <button type="submit" class="btn btn-primary">Publish Product</button>
+          </form>
+        </div>
+        <div class="admin-section">
+          <h3>All Products</h3>
+          <div id="adminProductList" class="product-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal hidden">
+      <div class="modal-content">
+        <button class="modal-close" id="authClose">×</button>
+        <h2 id="authTitle">Sign In</h2>
+        <form id="authForm" class="form">
+          <input type="email" id="authEmail" placeholder="Email" required>
+          <input type="password" id="authPassword" placeholder="Password" required>
+          <input type="text" id="authName" placeholder="Full name (signup only)" class="signup-only hidden">
+          <button type="submit" class="btn btn-primary btn-block" id="authSubmit">Sign In</button>
+        </form>
+        <p class="auth-toggle" id="authToggle">Don't have an account? Sign up</p>
+        <div id="authError" class="error-msg hidden"></div>
+      </div>
+    </div>
+
+    <!-- Event Modal -->
+    <div id="eventModal" class="modal hidden">
+      <div class="modal-content">
+        <button class="modal-close" id="eventClose">×</button>
+        <h2>Add Action Item</h2>
+        <form id="eventForm" class="form">
+          <input type="text" id="eventTitle" placeholder="Title" required>
+          <textarea id="eventDesc" placeholder="Description"></textarea>
+          <input type="date" id="eventDate" required>
+          <input type="time" id="eventTime">
+          <select id="eventCategory">
+            <option value="general">General</option>
+            <option value="uspto">USPTO</option>
+            <option value="paychex">Paychex</option>
+            <option value="banking">Banking</option>
+            <option value="cloudflare">Cloudflare</option>
+            <option value="github">GitHub</option>
+            <option value="client">Client</option>
+            <option value="deadline">Deadline</option>
+          </select>
+          <button type="submit" class="btn btn-primary btn-block">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Time Log Modal -->
+    <div id="timeModal" class="modal hidden">
+      <div class="modal-content">
+        <button class="modal-close" id="timeClose">×</button>
+        <h2>Log Time</h2>
+        <form id="timeForm" class="form">
+          <input type="date" id="timeDate" required>
+          <input type="text" id="timeTask" placeholder="Task description" required>
+          <input type="number" id="timeHours" placeholder="Hours (e.g. 2.5)" step="0.25" required>
+          <textarea id="timeNotes" placeholder="Notes (optional)"></textarea>
+          <button type="submit" class="btn btn-primary btn-block">Log Entry</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supabase + Stripe SDKs -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+  <!-- App Scripts -->
+  <script src="js/supabase.js"></script>
+  <script src="js/stripe.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/calendar.js"></script>
+  <script src="js/timelog.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
