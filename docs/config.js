@@ -5,5 +5,5 @@ window.__ENV__ = {
   SUPABASE_ANON_KEY: 'PLACEHOLDER_SUPABASE_ANON_KEY',
   STRIPE_PUBLISHABLE_KEY: 'PLACEHOLDER_STRIPE_PK',
   APP_NAME: 'QSLC SovereignHQ',
-  APP_URL: 'https://sovereign-maxeffort.github.io/SovereignHQ-Control/'
+  APP_URL: 'https://qslc.github.io/SovereignHQ-Control/'
 };
