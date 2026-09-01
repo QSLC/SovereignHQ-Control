@@ -1,0 +1,22 @@
+{
+  "previewPort": 3000,
+  "healthPath": "/",
+  "startCommand": "docker compose -f docker-compose.base44.yml up -d",
+  "secrets": [
+    {
+      "name": "SUPABASE_URL",
+      "description": "Supabase project URL (e.g. https://yourproject.supabase.co) from your Supabase project settings",
+      "requiredAtBoot": false
+    },
+    {
+      "name": "SUPABASE_ANON_KEY",
+      "description": "Supabase anon/public key from your Supabase project settings (API keys page)",
+      "requiredAtBoot": false
+    },
+    {
+      "name": "STRIPE_PUBLISHABLE_KEY",
+      "description": "Stripe publishable key (pk_test_... or pk_live_...) from your Stripe dashboard",
+      "requiredAtBoot": false
+    }
+  ]
+}
