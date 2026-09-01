@@ -9,6 +9,7 @@
   <link rel="manifest" href="manifest.json">
   <title>SovereignHQ — QSLC</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/wsdot.css">
 </head>
 <body>
   <div id="app">
@@ -37,6 +38,7 @@
       <button class="nav-tab" data-view="store">▤ Store</button>
       <button class="nav-tab" data-view="calendar">⛝ Calendar</button>
       <button class="nav-tab" data-view="timelog">⏱ Time Log</button>
+      <button class="nav-tab" data-view="cameras">📷 Cameras</button>
       <button class="nav-tab" data-view="admin" id="adminTab" style="display:none">⚙ Admin</button>
     </nav>
 
@@ -120,6 +122,17 @@
         </div>
         <div id="timeLogList" class="timelog-list">
           <div class="empty-state">Loading...</div>
+        </div>
+      </section>
+
+      <!-- WSDOT Cameras -->
+      <section class="view" id="view-cameras">
+        <div class="calendar-header">
+          <h2>WSDOT Highway Cameras</h2>
+          <button id="locateBtn" class="btn btn-primary btn-sm" onclick="initWsdotCameras()">📍 Refresh</button>
+        </div>
+        <div id="wsdot-cameras" class="wsdot-container">
+          <div class="wsdot-loading">Loading highway cameras...</div>
         </div>
       </section>
 
@@ -218,6 +231,7 @@
   <script src="js/calendar.js"></script>
   <script src="js/timelog.js"></script>
   <script src="config.js"></script>
+  <script src="js/wsdot.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
