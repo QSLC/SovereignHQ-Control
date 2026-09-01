@@ -53,6 +53,7 @@ function switchView(view) {
   if (view === 'store') loadStore();
   if (view === 'calendar') loadCalendar();
   if (view === 'timelog') loadTimeLog();
+  if (view === 'system') loadSystemDashboard();
   if (view === 'admin') loadAdminProducts();
 }
 

@@ -441,6 +441,76 @@ body {
 .cal-status.done { background: rgba(79,209,161,0.15); color: var(--success); }
 .cal-status.pending { background: rgba(255,209,102,0.15); color: var(--warning); }
 
+/* System / Docker Health */
+.sys-stats { grid-template-columns: 1fr 1fr; margin-bottom: 16px; }
+
+.container-list { display: flex; flex-direction: column; gap: 10px; }
+
+.container-card {
+  background: var(--bg-input);
+  border-radius: 10px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+}
+.container-card.stopped { border-left-color: var(--danger); opacity: 0.75; }
+
+.container-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.container-name { font-weight: 700; font-size: 15px; }
+.container-image {
+  font-size: 12px;
+  color: var(--text-dim);
+  font-family: monospace;
+  margin-bottom: 4px;
+}
+.container-ports { font-size: 12px; color: var(--text-dim); margin-bottom: 4px; }
+.container-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+}
+.container-id {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-family: monospace;
+  opacity: 0.6;
+}
+.container-status-text { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+.badge-running { background: rgba(100,255,218,0.15); color: var(--accent); }
+.badge-exited { background: rgba(255,107,107,0.15); color: var(--danger); }
+
+.health-badge { font-size: 11px; font-weight: 600; }
+.health-healthy { color: var(--success); }
+.health-unhealthy { color: var(--danger); }
+.health-starting { color: var(--warning); }
+.health-none { color: var(--text-dim); }
+
+.health-log {
+  font-size: 11px;
+  color: var(--text-dim);
+  background: var(--bg);
+  border-radius: 6px;
+  padding: 6px 8px;
+  margin-top: 6px;
+  max-height: 60px;
+  overflow: hidden;
+  font-family: monospace;
+}
+
 /* Empty State */
 .empty-state {
   text-align: center;

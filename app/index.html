@@ -37,6 +37,7 @@
       <button class="nav-tab" data-view="store">▤ Store</button>
       <button class="nav-tab" data-view="calendar">⛝ Calendar</button>
       <button class="nav-tab" data-view="timelog">⏱ Time Log</button>
+      <button class="nav-tab" data-view="system">⚡ System</button>
       <button class="nav-tab" data-view="admin" id="adminTab" style="display:none">⚙ Admin</button>
     </nav>
 
@@ -120,6 +121,38 @@
         </div>
         <div id="timeLogList" class="timelog-list">
           <div class="empty-state">Loading...</div>
+        </div>
+      </section>
+
+      <!-- System / Docker Health -->
+      <section class="view" id="view-system">
+        <div class="store-header">
+          <h2>System Health</h2>
+          <button id="systemRefreshBtn" class="btn btn-sm" onclick="loadSystemDashboard()">↻ Refresh</button>
+        </div>
+        <div class="stats-grid sys-stats">
+          <div class="stat-card">
+            <div class="stat-label">Total</div>
+            <div class="stat-value" id="sysTotal">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Running</div>
+            <div class="stat-value" id="sysRunning">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Stopped</div>
+            <div class="stat-value" id="sysStopped">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Unhealthy</div>
+            <div class="stat-value" id="sysUnhealthy">—</div>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Containers</h3>
+          <div id="systemContainers" class="container-list">
+            <div class="empty-state">Loading containers...</div>
+          </div>
         </div>
       </section>
 
@@ -219,6 +252,7 @@
   <script src="js/store.js"></script>
   <script src="js/calendar.js"></script>
   <script src="js/timelog.js"></script>
+  <script src="js/system.js"></script>
   <script src="config.js"></script>
   <script src="js/app.js"></script>
 </body>
