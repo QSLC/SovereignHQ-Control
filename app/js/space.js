@@ -1,4 +1,5 @@
 // Space View — 5D Star Map, ISS Tracker, NASA APOD
+// Realistic stellar rendering with spectral colors, diffraction spikes, nebulae
 
 var starCanvas, starCtx, starRA = 0, starDec = 0.3;
 var starDragging = false, starLastX = 0, starLastY = 0;
@@ -6,32 +7,68 @@ var starAnim = null, starTwinkle = 0;
 var issTimer = null, issTrail = [];
 var apodLoaded = false;
 
-// Bright named stars: [RA°, Dec°, name, magnitude]
+// Spectral class → RGB string (for rgba())
+var SPECTRAL_RGB = {
+  O: '155, 176, 255',   // blue
+  B: '170, 191, 255',   // blue-white
+  A: '210, 222, 255',   // white
+  F: '248, 247, 255',   // yellow-white
+  G: '255, 244, 210',   // yellow (Sun-like)
+  K: '255, 200, 140',   // orange
+  M: '255, 160, 100'    // red-orange
+};
+
+function starColor(spectral, alpha) {
+  var rgb = SPECTRAL_RGB[spectral] || SPECTRAL_RGB.A;
+  return 'rgba(' + rgb + ', ' + alpha + ')';
+}
+
+function randomSpectral() {
+  var r = Math.random();
+  if (r < 0.08) return 'B';
+  if (r < 0.35) return 'A';
+  if (r < 0.55) return 'F';
+  if (r < 0.72) return 'G';
+  if (r < 0.88) return 'K';
+  return 'M';
+}
+
+// Bright named stars: [RA°, Dec°, name, magnitude, spectral class]
 var NAMED_STARS = [
-  [101.3, -16.7, 'Sirius', -1.46],
-  [279.2, 38.8, 'Vega', 0.03],
-  [37.9, 89.3, 'Polaris', 1.97],
-  [88.8, 7.4, 'Betelgeuse', 0.50],
-  [78.6, -8.2, 'Rigel', 0.18],
-  [213.9, 19.2, 'Arcturus', -0.05],
-  [201.3, -11.2, 'α Centauri', -0.27],
-  [281.2, -33.4, 'Altair', 0.77],
-  [310.4, 12.5, 'Deneb', 1.25],
-  [79.2, 45.3, 'Capella', 0.08],
-  [116.3, 28.0, 'Procyon', 0.34],
-  [165.5, 56.5, 'Aldebaran', 0.85],
-  [237.7, -26.4, 'Antares', 1.09],
-  [254.0, 16.1, 'Spica', 0.98],
-  [198.0, 8.9, 'Regulus', 1.35],
-  [344.1, -29.6, 'Fomalhaut', 1.16],
-  [146.0, 23.4, 'Pollux', 1.14],
-  [152.1, 12.0, 'Castor', 1.58]
+  [101.3, -16.7, 'Sirius', -1.46, 'A'],
+  [279.2, 38.8, 'Vega', 0.03, 'A'],
+  [37.9, 89.3, 'Polaris', 1.97, 'F'],
+  [88.8, 7.4, 'Betelgeuse', 0.50, 'M'],
+  [78.6, -8.2, 'Rigel', 0.18, 'B'],
+  [213.9, 19.2, 'Arcturus', -0.05, 'K'],
+  [201.3, -11.2, '\u03b1 Centauri', -0.27, 'G'],
+  [281.2, -33.4, 'Altair', 0.77, 'A'],
+  [310.4, 12.5, 'Deneb', 1.25, 'A'],
+  [79.2, 45.3, 'Capella', 0.08, 'G'],
+  [116.3, 28.0, 'Procyon', 0.34, 'F'],
+  [165.5, 56.5, 'Aldebaran', 0.85, 'K'],
+  [237.7, -26.4, 'Antares', 1.09, 'M'],
+  [254.0, 16.1, 'Spica', 0.98, 'B'],
+  [198.0, 8.9, 'Regulus', 1.35, 'B'],
+  [344.1, -29.6, 'Fomalhaut', 1.16, 'A'],
+  [146.0, 23.4, 'Pollux', 1.14, 'K'],
+  [152.1, 12.0, 'Castor', 1.58, 'A']
+];
+
+// Nebula clouds on the celestial sphere
+var NEBULAE = [
+  { ra: 84, dec: -5, rgb: '120, 60, 180', size: 0.28 },   // Orion
+  { ra: 290, dec: 40, rgb: '60, 100, 200', size: 0.22 },  // Cygnus
+  { ra: 140, dec: 55, rgb: '200, 80, 80', size: 0.18 },   // Cassiopeia
+  { ra: 260, dec: -25, rgb: '160, 70, 90', size: 0.2 },    // Scorpius
+  { ra: 95, dec: -55, rgb: '80, 120, 200', size: 0.15 }   // Carina
 ];
 
 // Background stars on celestial sphere
 var BG_STARS = [];
 (function () {
-  for (var i = 0; i < 500; i++) {
+  // Random sphere distribution
+  for (var i = 0; i < 400; i++) {
     var u = Math.random(), v = Math.random();
     var theta = u * 2 * Math.PI;
     var phi = Math.acos(2 * v - 1);
@@ -40,7 +77,20 @@ var BG_STARS = [];
       dec: (phi - Math.PI / 2) * 180 / Math.PI,
       size: Math.random() * 1.2 + 0.3,
       phase: Math.random() * Math.PI * 2,
-      tint: Math.random() < 0.15 ? 'blue' : (Math.random() < 0.3 ? 'warm' : 'white')
+      spectral: randomSpectral()
+    });
+  }
+  // Milky Way band — dense star concentration along galactic plane
+  for (var i = 0; i < 400; i++) {
+    var t = Math.random();
+    var ra = t * 360;
+    var dec = Math.sin(t * Math.PI * 4) * 22 + (Math.random() - 0.5) * 15;
+    BG_STARS.push({
+      ra: ra,
+      dec: dec,
+      size: Math.random() * 0.8 + 0.2,
+      phase: Math.random() * Math.PI * 2,
+      spectral: randomSpectral()
     });
   }
 })();
@@ -80,20 +130,33 @@ function drawStarMap() {
   var cx = w / 2, cy = h / 2;
   var scale = Math.min(w, h) * 0.42;
 
+  // Deep space background
   starCtx.fillStyle = '#02030a';
   starCtx.fillRect(0, 0, w, h);
 
-  // Nebula glow
-  var grad = starCtx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(w, h) * 0.6);
-  grad.addColorStop(0, 'rgba(40, 20, 80, 0.12)');
-  grad.addColorStop(0.4, 'rgba(20, 30, 60, 0.05)');
-  grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-  starCtx.fillStyle = grad;
-  starCtx.fillRect(0, 0, w, h);
+  // Nebula clouds (drawn first, behind stars)
+  for (var i = 0; i < NEBULAE.length; i++) {
+    var n = NEBULAE[i];
+    var p = rotate3d(radToCart(n.ra, n.dec), starRA, starDec);
+    if (p.z < 0.05) continue;
+    var px = cx + p.x * scale;
+    var py = cy - p.y * scale;
+    var fade = Math.min(1, p.z * 2);
+    var radius = n.size * scale * fade;
+
+    var g = starCtx.createRadialGradient(px, py, 0, px, py, radius);
+    g.addColorStop(0, 'rgba(' + n.rgb + ', ' + (0.18 * fade) + ')');
+    g.addColorStop(0.4, 'rgba(' + n.rgb + ', ' + (0.06 * fade) + ')');
+    g.addColorStop(1, 'rgba(' + n.rgb + ', 0)');
+    starCtx.fillStyle = g;
+    starCtx.beginPath();
+    starCtx.arc(px, py, radius, 0, Math.PI * 2);
+    starCtx.fill();
+  }
 
   starTwinkle += 0.02;
 
-  // Background stars
+  // Background stars with spectral colors
   for (var i = 0; i < BG_STARS.length; i++) {
     var s = BG_STARS[i];
     var p = rotate3d(radToCart(s.ra, s.dec), starRA, starDec);
@@ -103,18 +166,15 @@ function drawStarMap() {
     var py = cy - p.y * scale;
     var fade = Math.min(1, p.z * 2);
     var tw = 0.4 + 0.6 * Math.sin(starTwinkle + s.phase);
-    var alpha = tw * fade * 0.8;
+    var alpha = tw * fade * 0.85;
 
-    if (s.tint === 'blue') starCtx.fillStyle = 'rgba(180, 200, 255, ' + alpha + ')';
-    else if (s.tint === 'warm') starCtx.fillStyle = 'rgba(255, 210, 180, ' + alpha + ')';
-    else starCtx.fillStyle = 'rgba(255, 255, 240, ' + alpha + ')';
-
+    starCtx.fillStyle = starColor(s.spectral, alpha);
     starCtx.beginPath();
     starCtx.arc(px, py, s.size * fade, 0, Math.PI * 2);
     starCtx.fill();
   }
 
-  // Named stars
+  // Named stars — rendered with glow, color, and diffraction spikes
   for (var i = 0; i < NAMED_STARS.length; i++) {
     var ns = NAMED_STARS[i];
     var p = rotate3d(radToCart(ns[0], ns[1]), starRA, starDec);
@@ -124,23 +184,42 @@ function drawStarMap() {
     var py = cy - p.y * scale;
     var fade = Math.min(1, p.z * 2);
     var mag = ns[3];
+    var spectral = ns[4];
     var size = Math.max(1.5, (3 - mag) * 0.8) * fade;
     var tw = 0.7 + 0.3 * Math.sin(starTwinkle * 1.5 + i);
 
-    // Glow
+    // Diffraction spikes for bright stars (mag < 1.5)
+    if (mag < 1.5 && fade > 0.3) {
+      var spikeLen = size * 7 * fade;
+      var spikeAlpha = tw * fade * 0.35;
+      starCtx.strokeStyle = starColor(spectral, spikeAlpha);
+      starCtx.lineWidth = 1;
+      starCtx.beginPath();
+      starCtx.moveTo(px - spikeLen, py); starCtx.lineTo(px + spikeLen, py);
+      starCtx.moveTo(px, py - spikeLen); starCtx.lineTo(px, py + spikeLen);
+      starCtx.stroke();
+    }
+
+    // Outer glow — colored by spectral class
     var glow = starCtx.createRadialGradient(px, py, 0, px, py, size * 4);
-    glow.addColorStop(0, 'rgba(100, 255, 218, ' + (tw * 0.6 * fade) + ')');
-    glow.addColorStop(0.4, 'rgba(100, 255, 218, ' + (tw * 0.15 * fade) + ')');
-    glow.addColorStop(1, 'rgba(100, 255, 218, 0)');
+    glow.addColorStop(0, starColor(spectral, tw * 0.6 * fade));
+    glow.addColorStop(0.4, starColor(spectral, tw * 0.15 * fade));
+    glow.addColorStop(1, starColor(spectral, 0));
     starCtx.fillStyle = glow;
     starCtx.beginPath();
     starCtx.arc(px, py, size * 4, 0, Math.PI * 2);
     starCtx.fill();
 
-    // Core
-    starCtx.fillStyle = 'rgba(255, 255, 255, ' + (tw * fade) + ')';
+    // Core — white-hot center with spectral tint
+    starCtx.fillStyle = starColor(spectral, tw * fade);
     starCtx.beginPath();
     starCtx.arc(px, py, size, 0, Math.PI * 2);
+    starCtx.fill();
+
+    // Bright white center
+    starCtx.fillStyle = 'rgba(255, 255, 255, ' + (tw * fade * 0.8) + ')';
+    starCtx.beginPath();
+    starCtx.arc(px, py, size * 0.4, 0, Math.PI * 2);
     starCtx.fill();
 
     // Label
@@ -152,7 +231,7 @@ function drawStarMap() {
   }
 
   // Auto-rotate when not dragging
-  if (!starDragging) starRA += 0.0008;
+  if (!starDragging) starRA += 0.0006;
 
   starAnim = requestAnimationFrame(drawStarMap);
 }
@@ -163,7 +242,6 @@ function initStarMap() {
   starCtx = starCanvas.getContext('2d');
   resizeStarCanvas();
 
-  // Mouse
   starCanvas.onmousedown = function (e) { starDragging = true; starLastX = e.clientX; starLastY = e.clientY; };
   window.onmousemove = function (e) {
     if (!starDragging) return;
@@ -173,19 +251,15 @@ function initStarMap() {
   };
   window.onmouseup = function () { starDragging = false; };
 
-  // Touch
   starCanvas.ontouchstart = function (e) {
-    starDragging = true;
-    starLastX = e.touches[0].clientX;
-    starLastY = e.touches[0].clientY;
+    starDragging = true; starLastX = e.touches[0].clientX; starLastY = e.touches[0].clientY;
     e.preventDefault();
   };
   starCanvas.ontouchmove = function (e) {
     if (!starDragging) return;
     starRA += (e.touches[0].clientX - starLastX) * 0.005;
     starDec = Math.max(-1.4, Math.min(1.4, starDec + (e.touches[0].clientY - starLastY) * 0.005));
-    starLastX = e.touches[0].clientX;
-    starLastY = e.touches[0].clientY;
+    starLastX = e.touches[0].clientX; starLastY = e.touches[0].clientY;
     e.preventDefault();
   };
   starCanvas.ontouchend = function () { starDragging = false; };
@@ -229,7 +303,6 @@ function drawISSMap() {
   ctx.fillStyle = '#02030a';
   ctx.fillRect(0, 0, w, h);
 
-  // Grid lines
   ctx.strokeStyle = 'rgba(100, 255, 218, 0.08)';
   ctx.lineWidth = 1;
   for (var lat = -60; lat <= 60; lat += 30) {
@@ -241,7 +314,6 @@ function drawISSMap() {
     ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
   }
 
-  // Trail
   if (issTrail.length > 1) {
     ctx.strokeStyle = 'rgba(100, 255, 218, 0.3)';
     ctx.lineWidth = 2;
@@ -255,7 +327,6 @@ function drawISSMap() {
     ctx.stroke();
   }
 
-  // Current position
   if (issTrail.length > 0) {
     var pos = issTrail[issTrail.length - 1];
     var x = w / 2 + (pos.lon / 180) * (w / 2 - 10);
@@ -295,6 +366,11 @@ async function fetchAPOD() {
         '<div class="apod-explanation">' + (data.explanation || '').substring(0, 300) + '...</div>';
     }
     apodLoaded = true;
+
+    // If Google Drive is connected, auto-sync
+    if (typeof gdriveConnected !== 'undefined' && gdriveConnected) {
+      if (typeof syncCurrentApod === 'function') syncCurrentApod();
+    }
   } catch (e) {
     document.getElementById('apodContent').innerHTML =
       '<div class="empty-state">NASA API error: ' + e.message + '</div>';
@@ -312,6 +388,9 @@ function loadSpaceDashboard() {
   issTimer = setInterval(fetchISS, 10000);
 
   if (!apodLoaded) fetchAPOD();
+
+  // Init Google Drive UI
+  if (typeof updateGdriveUI === 'function') updateGdriveUI();
 }
 
 function stopSpaceDashboard() {
