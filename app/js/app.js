@@ -53,7 +53,9 @@ function switchView(view) {
   if (view === 'store') loadStore();
   if (view === 'calendar') loadCalendar();
   if (view === 'timelog') loadTimeLog();
+  if (view !== 'space' && typeof stopSpaceDashboard === 'function') stopSpaceDashboard();
   if (view === 'system') loadSystemDashboard();
+  if (view === 'space') loadSpaceDashboard();
   if (view === 'admin') loadAdminProducts();
 }
 

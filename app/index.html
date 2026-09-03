@@ -38,6 +38,7 @@
       <button class="nav-tab" data-view="calendar">⛝ Calendar</button>
       <button class="nav-tab" data-view="timelog">⏱ Time Log</button>
       <button class="nav-tab" data-view="system">⚡ System</button>
+      <button class="nav-tab" data-view="space">🌌 Space</button>
       <button class="nav-tab" data-view="admin" id="adminTab" style="display:none">⚙ Admin</button>
     </nav>
 
@@ -156,6 +157,53 @@
         </div>
       </section>
 
+      <!-- Space / NASA -->
+      <section class="view" id="view-space">
+        <div class="store-header">
+          <h2>Space Dashboard</h2>
+          <button id="spaceRefreshBtn" class="btn btn-sm" onclick="loadSpaceDashboard()">↻ Refresh</button>
+        </div>
+
+        <div class="panel space-panel">
+          <h3>5D Star Map — Live Sky View</h3>
+          <canvas id="starMapCanvas" class="star-map-canvas"></canvas>
+          <div class="star-map-hint">Drag to rotate • Auto-tracking active</div>
+        </div>
+
+        <div class="panel space-panel">
+          <h3>ISS Live Tracker</h3>
+          <div class="stats-grid iss-stats">
+            <div class="stat-card">
+              <div class="stat-label">Latitude</div>
+              <div class="stat-value" id="issLat">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Longitude</div>
+              <div class="stat-value" id="issLon">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Altitude</div>
+              <div class="stat-value" id="issAlt">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Velocity</div>
+              <div class="stat-value" id="issVel">—</div>
+            </div>
+          </div>
+          <div class="iss-map-wrap">
+            <canvas id="issMapCanvas" class="iss-map-canvas"></canvas>
+          </div>
+          <div class="iss-timestamp" id="issTime">Waiting for data...</div>
+        </div>
+
+        <div class="panel space-panel">
+          <h3>NASA Astronomy Picture of the Day</h3>
+          <div id="apodContent" class="apod-content">
+            <div class="empty-state">Loading NASA feed...</div>
+          </div>
+        </div>
+      </section>
+
       <!-- Admin -->
       <section class="view" id="view-admin">
         <h2>Admin Panel</h2>
@@ -253,6 +301,7 @@
   <script src="js/calendar.js"></script>
   <script src="js/timelog.js"></script>
   <script src="js/system.js"></script>
+  <script src="js/space.js"></script>
   <script src="config.js"></script>
   <script src="js/app.js"></script>
 </body>
