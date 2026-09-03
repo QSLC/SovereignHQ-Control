@@ -30,3 +30,26 @@ Do not commit passwords, tokens, `.env` files, private keys, complete bank recor
 - PowerShell: controlled local execution
 - GitHub: version authority and issue tracking
 - Microsoft 365: protected business documents
+
+## ROGLEX SSOT bootstrap — issue #1
+
+**Command (run on ROGLEX as administrator):**
+```powershell
+pwsh -NoProfile -ExecutionPolicy Bypass -File .\powershell\bootstrap-qslc-ssot.ps1
+```
+
+**Completion criteria:**
+- Folder structure exists under `C:\QSLC`
+- Local repository remote points to `Sovereign-maxeffort/SovereignHQ-Control`
+- Audit report result is `SUCCESS` (`C:\QSLC\98_AUDIT_LOGS\report-*.json`)
+- Bootstrap log present at `C:\QSLC\98_AUDIT_LOGS\bootstrap-*.log`
+- Clean `git status` on ROGLEX after push
+- Successful push to `origin/main`
+- GitHub Actions SSOT validation passes
+
+**Required evidence (ROGLEX-local, do not commit):**
+- `C:\QSLC\98_AUDIT_LOGS\bootstrap-*.log`
+- `C:\QSLC\98_AUDIT_LOGS\report-*.json`
+- Terminal output confirming `result: SUCCESS`
+
+**Status:** Pending execution on ROGLEX
