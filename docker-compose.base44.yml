@@ -12,7 +12,7 @@ services:
     entrypoint: ["/bin/sh", "-c"]
     command:
       - |
-        envsubst '$${SUPABASE_URL} $${SUPABASE_ANON_KEY} $${STRIPE_PUBLISHABLE_KEY} $${APP_NAME} $${APP_URL}' \
+        envsubst '$${SUPABASE_URL} $${SUPABASE_ANON_KEY} $${STRIPE_PUBLISHABLE_KEY} $${APP_NAME} $${APP_URL} $${GOOGLE_CLIENT_ID}' \
           < /usr/share/nginx/html/env.template.js > /tmp/env.js \
         && exec nginx -g 'daemon off;'
     depends_on:

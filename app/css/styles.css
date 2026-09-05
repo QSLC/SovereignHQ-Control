@@ -612,6 +612,43 @@ body {
   text-overflow: ellipsis;
 }
 
+/* Mars Rover Photos */
+.mars-content { margin-top: 4px; }
+.mars-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mars-card { border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+.mars-img { width: 100%; height: 140px; object-fit: cover; display: block; }
+.mars-info { padding: 6px 8px; background: var(--card); }
+.mars-camera { font-size: 11px; font-weight: 600; color: var(--text); }
+.mars-date { font-size: 10px; color: var(--text-dim); }
+
+/* NASA Image Archive */
+.nasa-search { margin-bottom: 10px; }
+.nasa-gallery-wrap { margin-top: 4px; }
+.nasa-gallery-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.nasa-gallery-card { border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+.nasa-gallery-img { width: 100%; height: 100px; object-fit: cover; display: block; }
+.nasa-gallery-title { font-size: 10px; color: var(--text-dim); padding: 4px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Google Drive sovereignty note */
+.gdrive-sovereign-note {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: rgba(100, 255, 218, 0.05);
+  border: 1px solid rgba(100, 255, 218, 0.1);
+  line-height: 1.5;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .mars-grid { grid-template-columns: repeat(4, 1fr); }
+  .nasa-gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  .nasa-gallery-img { height: 120px; }
+  .mars-img { height: 160px; }
+}
+
 /* Empty State */
 .empty-state {
   text-align: center;

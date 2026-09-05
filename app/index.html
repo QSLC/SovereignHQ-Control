@@ -204,6 +204,21 @@
         </div>
 
         <div class="panel space-panel">
+          <h3>Mars Rover — Latest Photos</h3>
+          <div id="marsContent" class="mars-content">
+            <div class="empty-state">Loading Mars Rover photos...</div>
+          </div>
+        </div>
+
+        <div class="panel space-panel">
+          <h3>NASA Image Archive</h3>
+          <input type="text" id="nasaSearchInput" placeholder="Search NASA images (e.g. galaxy, nebula, mars)..." class="search-input nasa-search" onkeydown="if(event.key==='Enter')fetchNasaGallery(this.value)">
+          <div id="nasaGalleryContent" class="nasa-gallery-wrap">
+            <div class="empty-state">Loading NASA archive...</div>
+          </div>
+        </div>
+
+        <div class="panel space-panel">
           <h3>Google Drive Sync</h3>
           <div id="gdriveStatus" class="gdrive-status">
             <div class="empty-state">Loading...</div>

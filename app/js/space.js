@@ -377,6 +377,51 @@ async function fetchAPOD() {
   }
 }
 
+// --- Mars Rover Photos ---
+
+async function fetchMarsPhotos() {
+  var el = document.getElementById('marsContent');
+  if (!el) return;
+  try {
+    var resp = await fetch('https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/latest_photos?api_key=DEMO_KEY');
+    var data = await resp.json();
+    var photos = (data.latest_photos || []).slice(0, 4);
+    if (photos.length === 0) { el.innerHTML = '<div class="empty-state">No photos available</div>'; return; }
+    el.innerHTML = '<div class="mars-grid">' + photos.map(function (p) {
+      return '<div class="mars-card">' +
+        '<img src="' + p.img_src + '" class="mars-img" alt="Mars ' + (p.camera ? p.camera.name : '') + '" loading="lazy">' +
+        '<div class="mars-info"><div class="mars-camera">' + (p.camera ? p.camera.full_name : 'Camera') + '</div>' +
+        '<div class="mars-date">Sol ' + p.sol + ' \u2022 ' + p.earth_date + '</div></div></div>';
+    }).join('') + '</div>';
+  } catch (e) {
+    el.innerHTML = '<div class="empty-state">Mars Rover API error: ' + e.message + '</div>';
+  }
+}
+
+// --- NASA Image Library ---
+
+async function fetchNasaGallery(query) {
+  var el = document.getElementById('nasaGalleryContent');
+  if (!el) return;
+  var q = query || 'galaxy';
+  el.innerHTML = '<div class="empty-state">Searching NASA archive...</div>';
+  try {
+    var resp = await fetch('https://images-api.nasa.gov/search?q=' + encodeURIComponent(q) + '&media_type=image&page_size=6');
+    var data = await resp.json();
+    var items = (data.collection && data.collection.items ? data.collection.items : []).filter(function (i) { return i.links && i.links[0]; });
+    if (items.length === 0) { el.innerHTML = '<div class="empty-state">No images found</div>'; return; }
+    el.innerHTML = '<div class="nasa-gallery-grid">' + items.map(function (item) {
+      var img = item.links[0].href;
+      var title = (item.data && item.data[0]) ? item.data[0].title : '';
+      return '<div class="nasa-gallery-card">' +
+        '<img src="' + img + '" class="nasa-gallery-img" alt="' + title + '" loading="lazy">' +
+        '<div class="nasa-gallery-title">' + title + '</div></div>';
+    }).join('') + '</div>';
+  } catch (e) {
+    el.innerHTML = '<div class="empty-state">NASA Library error: ' + e.message + '</div>';
+  }
+}
+
 // --- Main entry / cleanup ---
 
 function loadSpaceDashboard() {
@@ -388,6 +433,8 @@ function loadSpaceDashboard() {
   issTimer = setInterval(fetchISS, 10000);
 
   if (!apodLoaded) fetchAPOD();
+  fetchMarsPhotos();
+  fetchNasaGallery();
 
   // Init Google Drive UI
   if (typeof updateGdriveUI === 'function') updateGdriveUI();

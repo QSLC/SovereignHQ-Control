@@ -6,9 +6,11 @@ window.__ENV__ = {
   SUPABASE_ANON_KEY: '${SUPABASE_ANON_KEY}',
   STRIPE_PUBLISHABLE_KEY: '${STRIPE_PUBLISHABLE_KEY}',
   APP_NAME: '${APP_NAME}',
-  APP_URL: '${APP_URL}'
+  APP_URL: '${APP_URL}',
+  GOOGLE_CLIENT_ID: '${GOOGLE_CLIENT_ID}'
 };
 // Individual globals for app.js compatibility (it reads window.SUPABASE_URL etc.)
 window.SUPABASE_URL = '${SUPABASE_URL}';
 window.SUPABASE_ANON_KEY = '${SUPABASE_ANON_KEY}';
 window.STRIPE_PUBLISHABLE_KEY = '${STRIPE_PUBLISHABLE_KEY}';
+window.GOOGLE_CLIENT_ID = '${GOOGLE_CLIENT_ID}';

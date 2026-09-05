@@ -1,5 +1,5 @@
 // Service Worker — basic offline support
-const CACHE = 'sovereign-hq-v4';
+const CACHE = 'sovereign-hq-v5';
 const ASSETS = ['/', '/index.html', '/css/styles.css', '/manifest.json'];
 
 self.addEventListener('install', e => {

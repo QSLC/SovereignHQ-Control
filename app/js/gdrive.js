@@ -19,7 +19,7 @@ function updateGdriveUI() {
     statusEl.innerHTML =
       '<div class="gdrive-info">' +
       '<strong>Google Drive not configured.</strong><br>' +
-      'Add your Google OAuth Client ID to <code>config.js</code> as <code>GOOGLE_CLIENT_ID</code> to enable sync.<br>' +
+      'Add your Google OAuth Client ID via the Secrets page to enable sync.<br>' +
       '<a href="https://console.cloud.google.com/apis/credentials" target="_blank" class="apod-link">Get Client ID \u2192</a>' +
       '</div>';
     if (galleryEl) galleryEl.innerHTML = '';
@@ -36,7 +36,8 @@ function updateGdriveUI() {
     '<span class="gdrive-connected">\u2713 Connected</span> ' +
     '<button class="btn btn-sm" onclick="syncCurrentApod()">Sync APOD</button> ' +
     '<button class="btn btn-sm" onclick="saveStarMapToDrive()">Save Star Map</button> ' +
-    '<button class="btn btn-sm" onclick="disconnectGoogleDrive()">Disconnect</button>';
+    '<button class="btn btn-sm" onclick="disconnectGoogleDrive()">Disconnect</button>' +
+      '<div class="gdrive-sovereign-note">🔒 Only NASA visuals and star maps are synced. Your personal, financial, and paycheck data stays in your private database — never sent to Google Drive.</div>';
 }
 
 function connectGoogleDrive() {
