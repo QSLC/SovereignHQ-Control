@@ -52,3 +52,10 @@ function subscribeTier(name, priceCents) {
     alert('Stripe not configured.\n\nTo enable payments:\n1. Add your Stripe publishable key via the Secrets page\n2. Set up a payment link in your Stripe dashboard\n3. Tier: ' + name + ' ($' + (priceCents / 100) + '/mo)');
   }
 }
+
+// Self-initialize — independent of app.js DOMContentLoaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadPricingTiers);
+} else {
+  loadPricingTiers();
+}

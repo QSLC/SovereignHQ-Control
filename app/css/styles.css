@@ -731,6 +731,101 @@ body {
   .deploy-hardware { grid-template-columns: repeat(2, 1fr); }
 }
 
+/* KDP Book Generator */
+.kdp-intro { text-align: center; padding: 24px; }
+.kdp-intro p { color: var(--text-dim); font-size: 13px; margin: 8px 0 16px; max-width: 500px; margin-left: auto; margin-right: auto; }
+.kdp-toolbar { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.kdp-page-count { font-size: 13px; color: var(--text-dim); padding: 0 12px; }
+.kdp-page { background: #fff; color: #222; border-radius: 8px; padding: 24px; min-height: 400px; }
+.kdp-cover { text-align: center; padding: 80px 20px; }
+.kdp-cover h1 { font-size: 36px; color: #0a0e1a; margin-bottom: 8px; }
+.kdp-subtitle { font-size: 18px; color: #555; margin-bottom: 24px; }
+.kdp-author { font-size: 14px; color: #888; }
+.kdp-date { font-size: 12px; color: #aaa; margin-top: 4px; }
+.kdp-chapter { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #999; margin-bottom: 4px; }
+.kdp-page-title { font-size: 22px; color: #0a0e1a; margin-bottom: 12px; }
+.kdp-page-img { width: 100%; max-height: 350px; object-fit: cover; border-radius: 6px; margin-bottom: 12px; }
+.kdp-page-desc { font-size: 13px; line-height: 1.7; color: #444; }
+.kdp-page-source { font-size: 11px; color: #aaa; margin-top: 8px; }
+
+/* PSI Coin */
+.psi-header { display: flex; flex-direction: column; gap: 16px; margin-bottom: 16px; }
+.psi-price-block { text-align: center; padding: 20px; background: var(--card); border-radius: 12px; border: 1px solid var(--border); }
+.psi-symbol { font-size: 14px; color: var(--text-dim); font-weight: 600; }
+.psi-price { font-size: 42px; font-weight: 800; color: var(--accent); margin: 4px 0; }
+.psi-change { font-size: 14px; font-weight: 600; }
+.psi-up { color: #64ffda; }
+.psi-down { color: #ff6b6b; }
+.psi-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.psi-metric { padding: 12px; background: var(--card); border-radius: 8px; border: 1px solid var(--border); text-align: center; }
+.psi-metric-label { font-size: 11px; color: var(--text-dim); }
+.psi-metric-value { font-size: 16px; font-weight: 700; color: var(--text); margin-top: 2px; }
+.psi-buy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.psi-buy-btn { padding: 14px; border-radius: 8px; border: 1px solid var(--accent); background: rgba(100,255,218,0.05); color: var(--text); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.psi-buy-btn:hover { background: rgba(100,255,218,0.15); }
+.psi-buy-btn span { display: block; font-size: 12px; color: var(--accent); font-weight: 400; margin-top: 2px; }
+.psi-holdings { padding: 12px; background: var(--card); border-radius: 8px; border: 1px solid var(--border); text-align: center; }
+.psi-holdings-label { font-size: 12px; color: var(--text-dim); }
+.psi-holdings-value { font-size: 20px; font-weight: 700; color: var(--accent); margin: 2px 0; }
+.psi-holdings-usd { font-size: 13px; color: var(--text-dim); }
+.psi-disclaimer { font-size: 11px; color: var(--text-dim); text-align: center; margin-top: 12px; padding: 8px; }
+
+/* Planets */
+.planet-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.planet-card { cursor: pointer; text-align: center; padding: 12px; border-radius: 8px; background: var(--card); border: 1px solid var(--border); transition: border-color 0.2s; }
+.planet-card:hover { border-color: var(--accent); }
+.planet-visual { width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+.planet-name { font-size: 12px; font-weight: 600; color: var(--text); }
+.planet-info { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+
+/* Planet Zoom Modal */
+.planet-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.planet-modal-content { background: var(--card); border-radius: 12px; padding: 24px; max-width: 400px; width: 100%; text-align: center; position: relative; }
+.planet-modal-close { position: absolute; top: 8px; right: 12px; background: none; border: none; color: var(--text-dim); font-size: 24px; cursor: pointer; }
+.planet-zoom-visual { width: 160px; height: 160px; border-radius: 50%; margin: 0 auto 16px; box-shadow: 0 4px 30px rgba(0,0,0,0.5); }
+.planet-details { text-align: left; margin: 16px 0; }
+.pd-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(136,146,176,0.08); font-size: 13px; }
+.pd-row span:first-child { color: var(--text-dim); }
+.pd-row span:last-child { color: var(--text); font-weight: 600; }
+
+/* Blueprints */
+.blueprint-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.blueprint-card { padding: 16px; border-radius: 8px; background: var(--card); border: 1px solid var(--border); text-align: center; }
+.blueprint-svg { width: 100%; max-width: 200px; margin: 0 auto 8px; }
+.blueprint-svg svg { width: 100%; height: auto; }
+.blueprint-name { font-size: 13px; font-weight: 600; color: var(--accent); }
+.blueprint-desc { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+
+/* Holographic */
+.holo { position: relative; overflow: hidden; }
+.holo::before { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 50%, rgba(100,255,218,0.03) 50%); background-size: 100% 4px; pointer-events: none; animation: holo-scan 3s linear infinite; }
+@keyframes holo-scan { 0% { transform: translateY(0); } 100% { transform: translateY(4px); } }
+.holo-section { border-color: rgba(100,255,218,0.2); }
+
+/* Accounts */
+.deploy-checklist { display: flex; flex-direction: column; gap: 6px; }
+.checklist-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 13px; }
+.checklist-icon { font-size: 14px; width: 20px; text-align: center; }
+.checklist-text { color: var(--text); }
+.checklist-text em { color: var(--text-dim); font-style: italic; font-size: 12px; }
+.checklist-summary { font-size: 12px; color: var(--text-dim); margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(136,146,176,0.08); }
+.inventory-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.inv-card { padding: 12px; border-radius: 8px; background: var(--card); border: 1px solid var(--border); }
+.inv-tab { font-weight: 700; font-size: 14px; color: var(--text); }
+.inv-features { font-size: 11px; color: var(--text-dim); margin: 4px 0; }
+.inv-status { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; display: inline-block; }
+.inv-ready { background: rgba(100,255,218,0.15); color: var(--accent); }
+.inv-pending { background: rgba(255,200,0,0.15); color: #ffc800; }
+.inv-planned { background: rgba(136,146,176,0.15); color: var(--text-dim); }
+
+@media (min-width: 768px) {
+  .psi-metrics { grid-template-columns: repeat(4, 1fr); }
+  .psi-buy-grid { grid-template-columns: repeat(4, 1fr); }
+  .planet-grid { grid-template-columns: repeat(8, 1fr); }
+  .blueprint-grid { grid-template-columns: repeat(4, 1fr); }
+  .inventory-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
 /* Empty State */
 .empty-state {
   text-align: center;

@@ -62,6 +62,11 @@ function switchView(view) {
   if (view === 'evehei') loadEveHei();
   if (view === 'cec') loadCEC();
   if (view === 'deploy') loadDeploy();
+  if (view === 'kdp') loadKdp();
+  if (view === 'psi') loadPsiCoin();
+  if (view === 'accounts') loadAccounts();
+  if (view === 'space') setTimeout(loadSpaceX, 500);
+  if (view !== 'psi' && typeof stopPsiTicker === 'function') stopPsiTicker();
   if (view === 'admin') loadAdminProducts();
   if (view === 'dashboard') setTimeout(initDashboardCharts, 100);
 }

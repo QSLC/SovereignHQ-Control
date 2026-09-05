@@ -71,3 +71,10 @@ function toggleHelpAnswer(i) {
   var el = document.getElementById('helpAnswer' + i);
   if (el) el.classList.toggle('hidden');
 }
+
+// Self-initialize — independent of app.js DOMContentLoaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initHelpAgent);
+} else {
+  initHelpAgent();
+}

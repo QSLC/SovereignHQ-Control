@@ -42,6 +42,9 @@
       <button class="nav-tab" data-view="evehei">🧠 EVE</button>
       <button class="nav-tab" data-view="cec">⚡ CEC</button>
       <button class="nav-tab" data-view="deploy">🚀 Deploy</button>
+      <button class="nav-tab" data-view="kdp">📚 KDP</button>
+      <button class="nav-tab" data-view="psi">🪙 PSI</button>
+      <button class="nav-tab" data-view="accounts">💰 Accts</button>
       <button class="nav-tab" data-view="admin" id="adminTab" style="display:none">⚙ Admin</button>
     </nav>
 
@@ -240,24 +243,6 @@
           </div>
         </div>
 
-        <!-- EVE HEI -->
-        <section class="view" id="view-evehei">
-          <div class="store-header"><h2>EVE HEI Core Brain</h2></div>
-          <div id="eveHeiContent" class="panel"><div class="empty-state">Loading...</div></div>
-        </section>
-
-        <!-- CEC -->
-        <section class="view" id="view-cec">
-          <div class="store-header"><h2>Conscious Energy Continuum</h2></div>
-          <div id="cecContent"></div>
-        </section>
-
-        <!-- Deploy -->
-        <section class="view" id="view-deploy">
-          <div class="store-header"><h2>Deployment & Strategy</h2></div>
-          <div id="deployContent"></div>
-        </section>
-
         <div class="panel space-panel">
           <h3>Google Drive Sync</h3>
           <div id="gdriveStatus" class="gdrive-status">
@@ -266,6 +251,52 @@
           <div id="gdriveGallery" class="gdrive-gallery"></div>
           <div class="gdrive-sovereign-note">🔒 Only NASA visuals and star maps sync to Google Drive. Your personal, financial, and paycheck data stays in your private database — never sent to Google.</div>
         </div>
+
+        <div class="panel space-panel">
+          <h3>🪐 Solar System — Click Planet to Zoom</h3>
+          <div id="planetGrid" class="planet-grid"></div>
+        </div>
+
+        <div class="panel space-panel holo-section">
+          <h3>🛸 Spaceship Blueprints — Mission Archive</h3>
+          <div id="blueprintGrid" class="blueprint-grid"></div>
+        </div>
+      </section>
+
+      <!-- EVE HEI -->
+      <section class="view" id="view-evehei">
+        <div class="store-header"><h2>EVE HEI Core Brain</h2></div>
+        <div id="eveHeiContent" class="panel"><div class="empty-state">Loading...</div></div>
+      </section>
+
+      <!-- CEC -->
+      <section class="view" id="view-cec">
+        <div class="store-header"><h2>Conscious Energy Continuum</h2></div>
+        <div id="cecContent"></div>
+      </section>
+
+      <!-- Deploy -->
+      <section class="view" id="view-deploy">
+        <div class="store-header"><h2>Deployment & Strategy</h2></div>
+        <div id="deployContent"></div>
+      </section>
+
+      <!-- KDP Book Generator -->
+      <section class="view" id="view-kdp">
+        <div class="store-header"><h2>KDP Book Generator</h2></div>
+        <div id="kdpContent"></div>
+      </section>
+
+      <!-- PSI Coin -->
+      <section class="view" id="view-psi">
+        <div class="store-header"><h2>PSI Coin — Sovereign Token</h2></div>
+        <div id="psiContent"></div>
+      </section>
+
+      <!-- Accounts -->
+      <section class="view" id="view-accounts">
+        <div class="store-header"><h2>Accounts & Deployment</h2></div>
+        <div id="accountsContent"></div>
       </section>
 
       <!-- Admin -->
@@ -377,6 +408,10 @@
   <script src="js/deploy.js"></script>
   <script src="js/agent.js"></script>
   <script src="js/tiers.js"></script>
+  <script src="js/kdp.js"></script>
+  <script src="js/psicoin.js"></script>
+  <script src="js/spacex.js"></script>
+  <script src="js/accounts.js"></script>
   <script src="config.js"></script>
   <script src="js/app.js"></script>
 </body>
