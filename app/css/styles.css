@@ -649,6 +649,88 @@ body {
   .mars-img { height: 160px; }
 }
 
+/* Dashboard Charts */
+.charts-row { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 12px; }
+.chart-panel { min-height: 200px; }
+.chart-wrap { position: relative; height: 180px; width: 100%; }
+
+/* EVE HEI Tree */
+.eve-tree { padding: 8px 0; }
+.eve-node { padding: 8px 0; border-bottom: 1px solid rgba(136, 146, 176, 0.08); }
+.eve-node-row { display: flex; align-items: center; gap: 8px; }
+.eve-node-toggle { background: none; border: none; color: var(--accent); cursor: pointer; font-size: 12px; padding: 0; width: 16px; }
+.eve-node-bullet { color: var(--text-dim); width: 16px; text-align: center; }
+.eve-node-icon { font-size: 18px; }
+.eve-node-name { font-weight: 600; font-size: 14px; color: var(--text); }
+.eve-node-desc { font-size: 12px; color: var(--text-dim); margin-left: 32px; margin-top: 2px; }
+.eve-children { display: none; padding-left: 8px; border-left: 1px solid rgba(100, 255, 218, 0.15); margin-left: 12px; }
+.eve-children.expanded { display: block; }
+
+/* CEC */
+.cec-panel { margin-top: 12px; }
+.cec-metrics { display: flex; flex-direction: column; gap: 10px; }
+.cec-metric { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-dim); }
+.cec-metric span:first-child { width: 100px; }
+.cec-metric span:last-child { width: 40px; text-align: right; color: var(--accent); }
+.cec-bar { flex: 1; height: 8px; background: rgba(136, 146, 176, 0.1); border-radius: 4px; overflow: hidden; }
+.cec-bar-fill { height: 100%; background: linear-gradient(90deg, #64ffda, #4d9b7e); border-radius: 4px; }
+
+/* Deploy */
+.deploy-links { display: flex; flex-direction: column; gap: 8px; }
+.deploy-link-card { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 8px; background: var(--card); border: 1px solid var(--border); text-decoration: none; color: var(--text); transition: border-color 0.2s; }
+.deploy-link-card:hover { border-color: var(--accent); }
+.deploy-link-icon { font-size: 28px; }
+.deploy-link-title { font-weight: 600; font-size: 14px; }
+.deploy-link-desc { font-size: 12px; color: var(--text-dim); }
+.deploy-hardware { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.hw-card { padding: 12px; border-radius: 8px; background: var(--card); border: 1px solid var(--border); text-align: center; }
+.hw-icon { font-size: 28px; }
+.hw-name { font-weight: 600; font-size: 14px; margin-top: 4px; }
+.hw-spec { font-size: 11px; color: var(--text-dim); }
+.hw-status { font-size: 11px; color: var(--accent); margin-top: 4px; font-weight: 600; }
+.roadmap { padding: 8px 0; }
+.roadmap-item { display: flex; align-items: flex-start; gap: 12px; padding: 8px 0; }
+.roadmap-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(136, 146, 176, 0.2); margin-top: 4px; flex-shrink: 0; }
+.roadmap-dot.done { background: var(--accent); }
+.roadmap-dot.active { background: #a371f7; box-shadow: 0 0 8px rgba(163, 113, 247, 0.5); }
+.roadmap-date { font-size: 11px; color: var(--text-dim); width: 60px; flex-shrink: 0; font-weight: 600; }
+.roadmap-text { font-size: 13px; color: var(--text); }
+
+/* Pricing Tiers */
+.pricing-section { margin-top: 16px; }
+.pricing-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.pricing-card { padding: 20px; border-radius: 12px; background: var(--card); border: 1px solid var(--border); position: relative; }
+.pricing-highlight { border-color: var(--accent); box-shadow: 0 0 20px rgba(100, 255, 218, 0.1); }
+.pricing-badge { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #0a0e1a; font-size: 11px; font-weight: 700; padding: 2px 12px; border-radius: 10px; }
+.pricing-name { font-weight: 700; font-size: 16px; }
+.pricing-price { font-size: 32px; font-weight: 800; color: var(--accent); margin: 8px 0 4px; }
+.pricing-price span { font-size: 14px; color: var(--text-dim); font-weight: 400; }
+.pricing-desc { font-size: 13px; color: var(--text-dim); margin-bottom: 12px; }
+.pricing-features { list-style: none; padding: 0; margin: 0 0 16px; }
+.pricing-features li { font-size: 13px; color: var(--text); padding: 4px 0; }
+.btn-outline { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
+
+/* Help Agent */
+.help-agent-btn { position: fixed; bottom: 20px; right: 20px; width: 52px; height: 52px; border-radius: 50%; background: var(--accent); border: none; font-size: 24px; cursor: pointer; box-shadow: 0 4px 20px rgba(100, 255, 218, 0.3); z-index: 1000; transition: transform 0.2s; }
+.help-agent-btn:hover { transform: scale(1.1); }
+.help-agent-panel { position: fixed; bottom: 80px; right: 20px; width: 340px; max-width: calc(100vw - 40px); max-height: 440px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; z-index: 1000; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.5); }
+.help-agent-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: var(--bg-alt); font-weight: 700; font-size: 14px; }
+.help-agent-close { background: none; border: none; color: var(--text-dim); font-size: 20px; cursor: pointer; }
+.help-agent-search { margin: 8px 12px; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 13px; }
+.help-agent-results { overflow-y: auto; padding: 0 12px 12px; }
+.help-agent-item { padding: 10px; border-radius: 8px; cursor: pointer; margin-bottom: 4px; }
+.help-agent-item:hover { background: rgba(100, 255, 218, 0.05); }
+.help-agent-q { font-size: 13px; font-weight: 600; color: var(--text); }
+.help-agent-a { font-size: 12px; color: var(--text-dim); margin-top: 6px; line-height: 1.5; }
+.help-agent-no-results { font-size: 12px; color: var(--text-dim); padding: 12px; text-align: center; }
+
+@media (min-width: 768px) {
+  .charts-row { grid-template-columns: 1fr 1fr; }
+  .chart-wrap { height: 200px; }
+  .pricing-grid { grid-template-columns: repeat(3, 1fr); }
+  .deploy-hardware { grid-template-columns: repeat(2, 1fr); }
+}
+
 /* Empty State */
 .empty-state {
   text-align: center;

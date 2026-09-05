@@ -1,12 +1,11 @@
 // App Router & Init
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Inject environment (in production, Cloudflare Pages injects these)
-  window.__ENV__ = {
-    SUPABASE_URL: window.SUPABASE_URL || '',
-    SUPABASE_ANON_KEY: window.SUPABASE_ANON_KEY || '',
-    STRIPE_PUBLISHABLE_KEY: window.STRIPE_PUBLISHABLE_KEY || ''
-  };
+  // Preserve env.js values, fill in any missing keys
+  window.__ENV__ = window.__ENV__ || {};
+  if (!window.__ENV__.SUPABASE_URL) window.__ENV__.SUPABASE_URL = window.SUPABASE_URL || '';
+  if (!window.__ENV__.SUPABASE_ANON_KEY) window.__ENV__.SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || '';
+  if (!window.__ENV__.STRIPE_PUBLISHABLE_KEY) window.__ENV__.STRIPE_PUBLISHABLE_KEY = window.STRIPE_PUBLISHABLE_KEY || '';
 
   // Nav tabs
   document.querySelectorAll('.nav-tab').forEach(tab => {
@@ -32,11 +31,15 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProducts(filtered);
   });
 
-  // Init auth
-  initAuth();
+  // Init UI components first (deferred so they run regardless of auth errors)
+  setTimeout(initHelpAgent, 0);
+  setTimeout(loadPricingTiers, 0);
 
-  // Load views (store loads for everyone, others need auth)
-  loadStore();
+  // Init auth (wrapped — may fail if Supabase not configured)
+  try { initAuth(); } catch(e) { console.log('Auth deferred:', e.message); }
+
+  // Load views
+  try { loadStore(); } catch(e) { console.log('Store deferred:', e.message); }
 
   // Restore theme
   const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -56,7 +59,11 @@ function switchView(view) {
   if (view !== 'space' && typeof stopSpaceDashboard === 'function') stopSpaceDashboard();
   if (view === 'system') loadSystemDashboard();
   if (view === 'space') loadSpaceDashboard();
+  if (view === 'evehei') loadEveHei();
+  if (view === 'cec') loadCEC();
+  if (view === 'deploy') loadDeploy();
   if (view === 'admin') loadAdminProducts();
+  if (view === 'dashboard') setTimeout(initDashboardCharts, 100);
 }
 
 function toggleTheme() {

@@ -39,6 +39,9 @@
       <button class="nav-tab" data-view="timelog">⏱ Time Log</button>
       <button class="nav-tab" data-view="system">⚡ System</button>
       <button class="nav-tab" data-view="space">🌌 Space</button>
+      <button class="nav-tab" data-view="evehei">🧠 EVE</button>
+      <button class="nav-tab" data-view="cec">⚡ CEC</button>
+      <button class="nav-tab" data-view="deploy">🚀 Deploy</button>
       <button class="nav-tab" data-view="admin" id="adminTab" style="display:none">⚙ Admin</button>
     </nav>
 
@@ -64,6 +67,20 @@
             <div class="stat-value" id="statPay">$0</div>
           </div>
         </div>
+        <div class="charts-row">
+          <div class="panel chart-panel">
+            <h3>Revenue Trend</h3>
+            <div class="chart-wrap"><canvas id="revenueChart"></canvas></div>
+          </div>
+          <div class="panel chart-panel">
+            <h3>Sales by Category</h3>
+            <div class="chart-wrap"><canvas id="salesChart"></canvas></div>
+          </div>
+        </div>
+        <div class="panel chart-panel">
+          <h3>Hours Logged — This Month</h3>
+          <div class="chart-wrap"><canvas id="hoursChart"></canvas></div>
+        </div>
         <div class="panel">
           <h3>Recent Activity</h3>
           <div id="recentActivity" class="activity-list">
@@ -86,6 +103,11 @@
         </div>
         <div id="productGrid" class="product-grid">
           <div class="empty-state">Loading products...</div>
+        </div>
+
+        <div class="panel pricing-section">
+          <h3>Sovereign Subscription Tiers</h3>
+          <div id="pricingTiers"></div>
         </div>
       </section>
 
@@ -218,6 +240,24 @@
           </div>
         </div>
 
+        <!-- EVE HEI -->
+        <section class="view" id="view-evehei">
+          <div class="store-header"><h2>EVE HEI Core Brain</h2></div>
+          <div id="eveHeiContent" class="panel"><div class="empty-state">Loading...</div></div>
+        </section>
+
+        <!-- CEC -->
+        <section class="view" id="view-cec">
+          <div class="store-header"><h2>Conscious Energy Continuum</h2></div>
+          <div id="cecContent"></div>
+        </section>
+
+        <!-- Deploy -->
+        <section class="view" id="view-deploy">
+          <div class="store-header"><h2>Deployment & Strategy</h2></div>
+          <div id="deployContent"></div>
+        </section>
+
         <div class="panel space-panel">
           <h3>Google Drive Sync</h3>
           <div id="gdriveStatus" class="gdrive-status">
@@ -318,6 +358,8 @@
   <script src="https://js.stripe.com/v3/"></script>
   <!-- Google Identity Services -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
   <!-- App Scripts -->
   <script src="js/supabase.js"></script>
   <script src="js/stripe.js"></script>
@@ -329,6 +371,12 @@
   <script src="js/system.js"></script>
   <script src="js/space.js"></script>
   <script src="js/gdrive.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/evehei.js"></script>
+  <script src="js/cec.js"></script>
+  <script src="js/deploy.js"></script>
+  <script src="js/agent.js"></script>
+  <script src="js/tiers.js"></script>
   <script src="config.js"></script>
   <script src="js/app.js"></script>
 </body>
