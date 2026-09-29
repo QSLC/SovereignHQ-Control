@@ -1,0 +1,156 @@
+{
+  "generated_at": "2026-09-29",
+  "rule": "Inventory only. Production/security state requires repo-specific verification; do not treat presence as deployment.",
+  "repositories": [
+    {
+      "repository": "Sovereign-maxeffort/sovereign-d73c2835",
+      "visibility": "private",
+      "default_branch": "main",
+      "classification": "PRIMARY_CONTROL_CANDIDATE"
+    },
+    {
+      "repository": "Sovereign-maxeffort/vite",
+      "visibility": "public",
+      "default_branch": "main",
+      "classification": "UPSTREAM_OR_REFERENCE_REVIEW"
+    },
+    {
+      "repository": "Sovereign-maxeffort/whiteantwan58",
+      "visibility": "private",
+      "default_branch": "main",
+      "classification": "PERSONAL_PRIVATE_REVIEW"
+    },
+    {
+      "repository": "QSLC/Sovereign",
+      "visibility": "private",
+      "default_branch": "main",
+      "classification": "PRODUCTION_CONTROL"
+    },
+    {
+      "repository": "QSLC/llama3.2",
+      "visibility": "private",
+      "default_branch": "main",
+      "classification": "MODEL_REFERENCE"
+    },
+    {
+      "repository": "QSLC/QSLC_SSOT",
+      "visibility": "private",
+      "default_branch": "main",
+      "classification": "SSOT_AUTOMATION"
+    },
+    {
+      "repository": "QSLC/Sovereign-QSLC_SSOT",
+      "visibility": "public",
+      "default_branch": "main",
+      "classification": "LEGACY_OR_MIRROR_REVIEW"
+    },
+    {
+      "repository": "QSLC/chatbot",
+      "visibility": "public",
+      "default_branch": "main",
+      "classification": "EVE_CHATBOT"
+    },
+    {
+      "repository": "QSLC/QSLC_SOVEREIGN_DASHBOARD",
+      "visibility": "private",
+      "default_branch": "main",
+      "classification": "DASHBOARD"
+    },
+    {
+      "repository": "QSLC/turbo-console-log",
+      "visibility": "public",
+      "default_branch": "master",
+      "classification": "UPSTREAM_REFERENCE_SECURITY_REVIEW"
+    },
+    {
+      "repository": "QSLC/login",
+      "visibility": "public",
+      "default_branch": "master",
+      "classification": "UPSTREAM_REFERENCE_SECURITY_REVIEW"
+    },
+    {
+      "repository": "QSLC/openauth-template",
+      "visibility": "public",
+      "default_branch": "main",
+      "classification": "TEMPLATE"
+    },
+    {
+      "repository": "QSLC/d1-template",
+      "visibility": "public",
+      "default_branch": "main",
+      "classification": "TEMPLATE_SECURITY_REVIEW"
+    },
+    {
+      "repository": "QSLC/workflows-starter",
+      "visibility": "public",
+      "default_branch": "main",
+      "classification": "TEMPLATE"
+    },
+    {
+      "repository": "QSLC/fastapi-python-boilerplate",
+      "visibility": "public",
+      "default_branch": "main",
+      "classification": "TEMPLATE"
+    },
+    {
+      "repository": "QSLC/gdp-dashboard",
+      "visibility": "public",
+      "default_branch": "main",
+      "classification": "REFERENCE_REVIEW"
+    },
+    {
+      "repository": "QSLC/vite-react-template",
+      "visibility": "private",
+      "default_branch": "main",
+      "classification": "TEMPLATE_CI_WIP"
+    },
+    {
+      "repository": "QSLC/codex-relay",
+      "visibility": "public",
+      "default_branch": "main",
+      "classification": "CODEX_RELAY_SECURITY_REVIEW"
+    },
+    {
+      "repository": "QSLC/vscode-mssql",
+      "visibility": "public",
+      "default_branch": "main",
+      "classification": "UPSTREAM_FORK_SECURITY_BACKLOG"
+    },
+    {
+      "repository": "QSLC/time-billing-template",
+      "visibility": "private",
+      "default_branch": "main",
+      "classification": "TIME_BILLING_TEMPLATE"
+    },
+    {
+      "repository": "QSLC/evew",
+      "visibility": "private",
+      "default_branch": "main",
+      "classification": "EVE_WORKSPACE"
+    },
+    {
+      "repository": "QSLC/cli",
+      "visibility": "public",
+      "default_branch": "trunk",
+      "classification": "CLI_REFERENCE_REVIEW"
+    },
+    {
+      "repository": "QSLC/SovereignHQ-Control",
+      "visibility": "public",
+      "default_branch": "main",
+      "classification": "OPERATIONS_CONTROL"
+    },
+    {
+      "repository": "QSLC/QSLC_sovereign",
+      "visibility": "public",
+      "default_branch": "main",
+      "classification": "LEGACY_OR_MIRROR_REVIEW"
+    },
+    {
+      "repository": "QSLC/demo-repository",
+      "visibility": "private",
+      "default_branch": "main",
+      "classification": "DEMO_ARCHIVE_REVIEW"
+    }
+  ]
+}
