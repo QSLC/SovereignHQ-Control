@@ -1,6 +1,6 @@
 # QSLC Company Handbook
 
-**Version:** 2026.09.29  
+**Version:** 2026.09.29-r2  
 **Company:** Quantum Sovereign Logistics Corp (QSLC)  
 **Control principle:** One entry → one evidence chain → existing authority → one Control Tower.
 
@@ -33,11 +33,23 @@ Preserve originals before transformation. Record source/provider, timestamps, id
 `UNVERIFIED → CALCULATED/RECONSTRUCTED → VERIFIED/APPROVED → PAYROLL READY → PROVIDER PROCESSED → SETTLED`.
 System activity can support time verification but does not automatically create payroll hours. Conflicts remain flagged until reconciled.
 
+### Verified QSLC payroll cadence
+- Pay frequency: weekly.
+- Historical pay period: Sunday through Saturday.
+- Historical check-date pattern: Monday following the Saturday close.
+- Paychex reminder/appointment pattern: Thursday.
+- Paychex direct-deposit rule: payroll submitted two banking days before check date after 5:00 PM local time may incur a $75 premium processing fee.
+- Control target: finalize and submit by Thursday before 5:00 PM Pacific when the Monday check-date pattern remains active.
+- Current Paychex check date, holds, Recovery/HRS state, and TAA implementation status override the historical pattern if Paychex changes them.
+
 ## 7. Banking & Treasury Operations
 Bluevine is active only when confirmed by provider/connected-account evidence. Mercury and other deprecated institutions are historical/reference only. Vendor bills are accounts payable; customer invoices are accounts receivable. No transfer or settlement is complete without provider proof.
 
 ## 8. Security & Access Control
 Use provider-supported OAuth/passkeys/biometrics. Keep secrets in secret stores/environment configuration. Require auditability. Security PRs require test/CI evidence before merge when required/available.
+
+### Repository security repair rule
+Security/dependency PRs follow: detect → verify current head SHA → rebase stale branch → run repository-appropriate CI/tests → repair CI/config → merge only passing unchanged head → post-merge recheck → update 25-repository control issue.
 
 ## 9. Reporting Standards
 Every operational metric exposes source, timestamp/freshness, and verification state. Without evidence display `DATA UNAVAILABLE` or `UNVERIFIED`.
