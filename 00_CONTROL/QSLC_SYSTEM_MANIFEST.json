@@ -1,18 +1,107 @@
 {
-  "schema_version": "1.0",
-  "version": "2026.09.29",
+  "schema_version": "1.1",
+  "version": "2026.09.29-r2",
   "company": "Quantum Sovereign Logistics Corp",
-  "control_plane": {"name":"QSLC SovereignHQ Control","status":"active","repository":"QSLC/SovereignHQ-Control"},
-  "intake": {"authority":"SharePoint 00_INTAKE","icloud_agent_inbox_role":"staging_only"},
-  "ssot": {"policy":"domain_authorities_no_competing_master","canonical_enterprise_reference":"CEC_WAM_MASTER_LEDGER_LIVE"},
-  "banking": {"active_when_provider_verified":["Bluevine"],"historical_or_deprecated":["Mercury","Navy Federal"]},
-  "dashboard": {"name":"QSLC Control Tower","sections":["System Health","Open Gates","Intake","SSOT","Evidence","Payroll","Banking","Customers/Invoices","Funding","Contracts","Reports","EVE","Security"]},
-  "governance_rules":["NO_EVIDENCE_NO_APPROVAL","NO_LINEAGE_NO_DELETION","NO_PROVIDER_PROOF_NO_SETTLEMENT"],
-  "verification":{"green_requires_evidence":true,"unknown_values":"DATA UNAVAILABLE","simulated_data_must_be_labeled":true},
-  "open_gates":[
-    {"name":"Paychex TAA receipt confirmation","state":"pending_provider_confirmation"},
-    {"name":"HireRight corrected MVR acceptance","state":"pending_provider_confirmation"},
-    {"name":"Stripe Base44 webhook HTTP 2xx verification","state":"pending_verification"},
-    {"name":"25-repository CI/security sweep","state":"in_progress"}
-  ]
+  "control_plane": {
+    "name": "QSLC SovereignHQ Control",
+    "status": "active",
+    "repository": "QSLC/SovereignHQ-Control"
+  },
+  "intake": {
+    "authority": "SharePoint 00_INTAKE",
+    "icloud_agent_inbox_role": "staging_only"
+  },
+  "ssot": {
+    "policy": "domain_authorities_no_competing_master",
+    "canonical_enterprise_reference": "CEC_WAM_MASTER_LEDGER_LIVE"
+  },
+  "banking": {
+    "active_when_provider_verified": [
+      "Bluevine"
+    ],
+    "historical_or_deprecated": [
+      "Mercury",
+      "Navy Federal"
+    ]
+  },
+  "dashboard": {
+    "name": "QSLC Control Tower",
+    "sections": [
+      "System Health",
+      "Open Gates",
+      "Intake",
+      "SSOT",
+      "Evidence",
+      "Payroll",
+      "Banking",
+      "Customers/Invoices",
+      "Funding",
+      "Contracts",
+      "Reports",
+      "EVE",
+      "Security"
+    ]
+  },
+  "governance_rules": [
+    "NO_EVIDENCE_NO_APPROVAL",
+    "NO_LINEAGE_NO_DELETION",
+    "NO_PROVIDER_PROOF_NO_SETTLEMENT"
+  ],
+  "verification": {
+    "green_requires_evidence": true,
+    "unknown_values": "DATA UNAVAILABLE",
+    "simulated_data_must_be_labeled": true
+  },
+  "open_gates": [
+    {
+      "name": "Paychex TAA receipt confirmation",
+      "state": "pending_provider_confirmation"
+    },
+    {
+      "name": "HireRight corrected MVR acceptance",
+      "state": "pending_provider_confirmation"
+    },
+    {
+      "name": "Stripe Base44 webhook HTTP 2xx verification",
+      "state": "pending_verification"
+    },
+    {
+      "name": "25-repository CI/security sweep",
+      "state": "in_progress"
+    }
+  ],
+  "payroll": {
+    "frequency": "weekly",
+    "verified_historical_period_start": "Sunday",
+    "verified_historical_period_end": "Saturday",
+    "historical_check_date_pattern": "Monday following period close",
+    "provider_appointment_pattern": "Thursday",
+    "direct_deposit_late_fee_rule": "After 5:00 PM local time when submitted two banking days before check date may incur $75 premium processing fee",
+    "control_target": "Thursday before 5:00 PM Pacific when Monday check-date pattern remains active",
+    "next_period": {
+      "start": "2026-09-27",
+      "end": "2026-10-03",
+      "target_submission_date": "2026-10-01",
+      "historical_check_date": "2026-10-05"
+    },
+    "following_period": {
+      "start": "2026-10-04",
+      "end": "2026-10-10",
+      "target_submission_date": "2026-10-08",
+      "historical_check_date": "2026-10-12"
+    },
+    "provider_override": "Use current Paychex check date/hold/TAA status if it differs from historical cadence"
+  },
+  "repository_security": {
+    "accessible_repository_count": 25,
+    "repair_loop": "hourly condition watch enabled",
+    "merge_policy": "current head SHA + repository-appropriate CI/test success required before merge",
+    "current_changes": [
+      "QSLC/codex-relay PR #4 merged after CI success",
+      "QSLC/codex-relay PR #2 rebase requested after base changed",
+      "QSLC/turbo-console-log CI workflow added",
+      "QSLC/vscode-mssql CI workflow added",
+      "QSLC/login Dependabot PRs rebase requested to retrigger existing CI"
+    ]
+  }
 }
