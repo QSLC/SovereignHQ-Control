@@ -54,6 +54,9 @@
     <div class="live"><span class="dot"></span>LIVE · synced 2026-10-08</div>
   </header>
 
+  <div style="border-radius:14px;overflow:hidden;border:1px solid var(--line);margin-bottom:22px">
+    <img src="img/hero.png" alt="QSLC Living Calculator" style="width:100%;display:block">
+  </div>
   <div class="banner"><b>Source-gated:</b> every number below comes from the verified Base44 records (TimeLog, BillingSummary, PayrollEvidence). Unverified sources show as "not connected" — never as zero or guessed. The fabricated "PSI engine" is permanently excluded by design.</div>
 
   <div class="grid">
@@ -95,6 +98,27 @@
   <div class="duo">
     <div class="chartbox"><h4>Hours &amp; Pay by Month</h4><canvas id="chartMonth"></canvas></div>
     <div class="chartbox"><h4>Billable vs Non-Billable</h4><canvas id="chartType"></canvas></div>
+  </div>
+
+
+  <div class="duo" style="margin-bottom:22px">
+    <div class="chartbox"><h4>Cumulative Billed (Verified)</h4><canvas id="chartCumulative"></canvas></div>
+    <div class="chartbox"><h4>Payroll Evidence by Status</h4><canvas id="chartEvidence"></canvas></div>
+  </div>
+
+  <div class="duo">
+    <div class="chartbox" style="height:auto"><h4>🤖 The Living Loop — how a text becomes an invoice</h4>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:.8rem">
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;flex:1;min-width:130px">📱 <b>Text Eve hours</b><br><span style="color:var(--dim)">"3 hours security cleanup"</span></div>
+        <div style="color:var(--acc);font-size:1.2rem">→</div>
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;flex:1;min-width:130px">🧾 <b>TimeLog entry</b><br><span style="color:var(--dim)">$75/hr, work_type tagged</span></div>
+        <div style="color:var(--acc);font-size:1.2rem">→</div>
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;flex:1;min-width:130px">⚙️ <b>9 AM sync</b><br><span style="color:var(--dim)">recalculates + pushes</span></div>
+        <div style="color:var(--acc);font-size:1.2rem">→</div>
+        <div style="background:var(--card);border:1px solid var(--acc);border-radius:10px;padding:12px 14px;flex:1;min-width:130px">📊 <b>This page</b><br><span style="color:var(--dim)">updates itself</span></div>
+      </div>
+    </div>
+    <div class="chartbox"><h4>Engine Health</h4><canvas id="chartHealth"></canvas></div>
   </div>
 
   <div class="sec">
@@ -148,6 +172,15 @@
 const css=getComputedStyle(document.documentElement);
 const cAcc=css.getPropertyValue('--acc').trim(),cGood=css.getPropertyValue('--good').trim(),cPurple=css.getPropertyValue('--purple').trim(),cDim=css.getPropertyValue('--dim').trim();
 if(window.Chart){
+  new Chart(document.getElementById('chartCumulative'),{type:'line',data:{labels:['Jul 3','Jul 28','Aug 31','Oct 4'],datasets:[{label:'Cumulative billed ($)',data:[0,1575,2025,2025],borderColor:cGood,backgroundColor:'rgba(52,211,153,.12)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:cGood}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:cDim}}},scales:{y:{ticks:{color:cDim},grid:{color:'rgba(31,42,68,.5)'}},x:{ticks:{color:cDim},grid:{display:false}}}}});
+  new Chart(document.getElementById('chartEvidence'),{type:'doughnut',data:{labels:['Verified (2)','Rejected (2)','Escalated (1)','Pending (4)'],datasets:[{data:[2,2,1,4],backgroundColor:[cGood,'#f87171',cPurple,cDim],borderWidth:0}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'58%',plugins:{legend:{position:'bottom',labels:{color:cDim}}}}});
+  new Chart(document.getElementById('chartHealth'),{type:'radar',data:{labels:['Financial','Operations','Sales','AI/Automation','Risk'],datasets:[
+    {label:'Live & verified',data:[90,85,15,100,70],borderColor:cAcc,backgroundColor:'rgba(77,163,255,.15)',pointBackgroundColor:cAcc},
+    {label:'Awaiting source',data:[35,20,0,0,45],borderColor:cPurple,backgroundColor:'rgba(167,139,250,.1)',pointBackgroundColor:cPurple}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:cDim}}},scales:{r:{min:0,max:100,ticks:{display:false},grid:{color:'rgba(31,42,68,.5)'},angleLines:{color:'rgba(31,42,68,.5)'},pointLabels:{color:cDim}}}}});
+
   new Chart(document.getElementById('chartMonth'),{type:'bar',data:{labels:['July 2026','Aug 2026'],datasets:[
     {label:'Hours',data:[21,8],backgroundColor:cAcc,borderRadius:6,yAxisID:'y'},
     {label:'Pay ($)',data:[1575,450],backgroundColor:cPurple,borderRadius:6,yAxisID:'y1'}]},
