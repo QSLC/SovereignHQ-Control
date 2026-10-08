@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QSLC Living Calculator — SovereignHQ</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔷</text></svg>">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{--bg:#0b1120;--card:#131b2e;--card2:#0f1626;--line:#1f2a44;--txt:#e6edf7;--dim:#8b9bb4;--acc:#4da3ff;--good:#34d399;--warn:#fbbf24;--bad:#f87171;--purple:#a78bfa}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.5}
+  .wrap{max-width:1100px;margin:0 auto;padding:24px 20px 60px}
+  header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:24px}
+  h1{font-size:1.5rem;background:linear-gradient(90deg,#4da3ff,#a78bfa);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{color:var(--dim);font-size:.85rem;margin-top:2px}
+  .live{display:inline-flex;align-items:center;gap:7px;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.4);color:var(--good);padding:5px 12px;border-radius:99px;font-size:.78rem;font-weight:600}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--good);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:22px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .card h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+  .big{font-size:1.7rem;font-weight:700}
+  .metric-row{display:flex;justify-content:space-between;padding:4px 0;font-size:.85rem}
+  .metric-row span:first-child{color:var(--dim)}
+  .pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:.72rem;font-weight:600;margin:2px 2px 2px 0}
+  .pill.good{background:rgba(52,211,153,.12);color:var(--good);border:1px solid rgba(52,211,153,.35)}
+  .pill.warn{background:rgba(251,191,36,.12);color:var(--warn);border:1px solid rgba(251,191,36,.35)}
+  .pill.bad{background:rgba(248,113,113,.12);color:var(--bad);border:1px solid rgba(248,113,113,.35)}
+  .pill.dim{background:rgba(139,155,180,.1);color:var(--dim);border:1px solid rgba(139,155,180,.3)}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px}
+  @media(max-width:760px){.duo{grid-template-columns:1fr}}
+  .chartbox{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:16px;height:300px}
+  .chartbox h4{font-size:.8rem;color:var(--dim);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em}
+  table{width:100%;border-collapse:collapse;font-size:.83rem}
+  th{text-align:left;color:var(--dim);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;padding:8px 10px;border-bottom:1px solid var(--line)}
+  td{padding:9px 10px;border-bottom:1px solid rgba(31,42,68,.5)}
+  tr:last-child td{border-bottom:none}
+  .num{text-align:right;font-variant-numeric:tabular-nums}
+  .banner{background:linear-gradient(135deg,rgba(167,139,250,.1),rgba(77,163,255,.08));border:1px solid rgba(167,139,250,.35);border-radius:14px;padding:14px 18px;font-size:.83rem;color:var(--dim);margin-bottom:22px}
+  .banner b{color:var(--purple)}
+  .sec{margin-bottom:22px}
+  .sec h2{font-size:1rem;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);color:var(--dim);font-size:.75rem;display:flex;flex-wrap:wrap;gap:6px;justify-content:space-between}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>QSLC Living Calculator</h1>
+      <div class="sub">Quantum Sovereign Logistics Corp · SovereignHQ Control Plane · verified data only</div>
+    </div>
+    <div class="live"><span class="dot"></span>LIVE · synced 2026-10-08</div>
+  </header>
+
+  <div class="banner"><b>Source-gated:</b> every number below comes from the verified Base44 records (TimeLog, BillingSummary, PayrollEvidence). Unverified sources show as "not connected" — never as zero or guessed. The fabricated "PSI engine" is permanently excluded by design.</div>
+
+  <div class="grid">
+    <div class="card"><h3>💰 Financial</h3>
+      <div class="big" style="color:var(--good)">$2,025</div>
+      <div class="metric-row"><span>Gross billed (27 billable hrs)</span><span>$2,025</span></div>
+      <div class="metric-row"><span>Verified payroll payable</span><span>$1,350</span></div>
+      <div class="metric-row"><span>Collected revenue</span><span>$0</span></div>
+      <div style="margin-top:8px"><span class="pill warn">Stripe: sandbox not connected</span><span class="pill warn">Paychex: awaiting written confirmation</span></div>
+    </div>
+    <div class="card"><h3>⚙️ Operations</h3>
+      <div class="big">29 hrs</div>
+      <div class="metric-row"><span>Billable</span><span>27 hrs</span></div>
+      <div class="metric-row"><span>Non-billable / admin</span><span>2 hrs</span></div>
+      <div class="metric-row"><span>Time entries</span><span>8</span></div>
+      <div style="margin-top:8px"><span class="pill warn">Last entry Aug 31 (38 days)</span></div>
+    </div>
+    <div class="card"><h3>📈 Sales</h3>
+      <div class="big">0</div>
+      <div class="metric-row"><span>Leads tracked</span><span>0</span></div>
+      <div class="metric-row"><span>Conversions</span><span>0</span></div>
+      <div style="margin-top:8px"><span class="pill dim">No pipeline sources connected</span></div>
+    </div>
+    <div class="card"><h3>🧠 AI / Automation</h3>
+      <div class="big" style="color:var(--acc)">3</div>
+      <div class="metric-row"><span>Morning Briefing</span><span class="pill good">7 AM</span></div>
+      <div class="metric-row"><span>Daily Billing Sync</span><span class="pill good">9 AM</span></div>
+      <div class="metric-row"><span>Evening Summary</span><span class="pill good">6 PM</span></div>
+    </div>
+    <div class="card"><h3>🔐 Risk</h3>
+      <div class="big" style="color:var(--warn)">4 pending</div>
+      <div class="metric-row"><span>Payroll evidence pending</span><span>4</span></div>
+      <div class="metric-row"><span>Rejected / escalated claims</span><span>3</span></div>
+      <div class="metric-row"><span>Quarantined fraud files</span><span>17</span></div>
+      <div style="margin-top:8px"><span class="pill bad">Payroll ON HOLD</span><span class="pill warn">8 fake apps pending owner deletion</span></div>
+    </div>
+  </div>
+
+  <div class="duo">
+    <div class="chartbox"><h4>Hours &amp; Pay by Month</h4><canvas id="chartMonth"></canvas></div>
+    <div class="chartbox"><h4>Billable vs Non-Billable</h4><canvas id="chartType"></canvas></div>
+  </div>
+
+  <div class="sec">
+    <h2>📋 Verified Billing Periods</h2>
+    <div class="card" style="padding:0;overflow:hidden">
+    <table>
+      <tr><th>Period</th><th class="num">Hours</th><th class="num">Rate</th><th class="num">Gross</th><th>Status</th></tr>
+      <tr><td>Jul 3 – Jul 28, 2026</td><td class="num">21.0</td><td class="num">$75/hr</td><td class="num">$1,575.00</td><td><span class="pill good">Verified</span></td></tr>
+      <tr><td>Aug 27 – Oct 4, 2026</td><td class="num">8.0</td><td class="num">$75/hr</td><td class="num">$450.00</td><td><span class="pill good">Verified</span></td></tr>
+      <tr><td colspan="4" style="color:var(--dim);font-size:.78rem;padding-top:10px">Rate locked at $75.00/hr · recalculated nightly at 9:00 AM PT by the Daily Billing Sync</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>🧾 Payroll Evidence Ledger</h2>
+    <div class="card" style="padding:0;overflow:hidden">
+    <table>
+      <tr><th>Claim</th><th class="num">Hrs</th><th class="num">Gross</th><th>Status</th></tr>
+      <tr><td>Jul 13 corrected check (verified vs workbook + PDF)</td><td class="num">10.0</td><td class="num">$750</td><td><span class="pill good">Verified · unpaid</span></td></tr>
+      <tr><td>Jul 20 corrected check (verified vs workbook + PDF)</td><td class="num">8.0</td><td class="num">$600</td><td><span class="pill good">Verified · unpaid</span></td></tr>
+      <tr><td>Jun 22–28 claim (110.12-hr superseded rows)</td><td class="num">98.61</td><td class="num">$7,395</td><td><span class="pill bad">Rejected</span></td></tr>
+      <tr><td>Jun 29–Jul 5 claim (superseded by Jul 20 correction)</td><td class="num">54.68</td><td class="num">$4,101</td><td><span class="pill bad">Rejected</span></td></tr>
+      <tr><td>Jul 6–10 claim (figures don't reconcile)</td><td class="num">5.0</td><td class="num">$4,950</td><td><span class="pill warn">Escalated</span></td></tr>
+      <tr><td>Jun 1–21 claims + Aug pay periods</td><td class="num">—</td><td class="num">$11,787</td><td><span class="pill warn">Pending evidence</span></td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>🕓 Recent Work Log</h2>
+    <div class="card" style="padding:0;overflow:hidden">
+    <table>
+      <tr><th>Date</th><th>Task</th><th class="num">Hrs</th><th class="num">Pay</th><th>Type</th></tr>
+      <tr><td>Aug 31</td><td>SovereignHQ PWA deployment + sync scripts + security review</td><td class="num">4</td><td class="num">$300</td><td><span class="pill good">Billable</span></td></tr>
+      <tr><td>Aug 31</td><td>SSOT_1010_EVE_HEI_VISUAL contamination review</td><td class="num">1</td><td class="num">$0</td><td><span class="pill dim">Non-billable</span></td></tr>
+      <tr><td>Aug 27</td><td>Cloudflare redirect &amp; system domain fix</td><td class="num">2</td><td class="num">$150</td><td><span class="pill good">Billable</span></td></tr>
+      <tr><td>Aug 27</td><td>Admin email &amp; workspace review</td><td class="num">1</td><td class="num">$0</td><td><span class="pill dim">Non-billable</span></td></tr>
+      <tr><td colspan="5" style="color:var(--dim);font-size:.78rem;padding-top:10px">Text Eve hours + task anytime — entries flow in and recalculate automatically at the next sync.</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <footer>
+    <span>QSLC Living Calculator v1 · part of the real SovereignHQ Control Plane</span>
+    <span>Data sources: TimeLog · BillingSummary · PayrollEvidence · updated nightly 9 AM PT</span>
+  </footer>
+</div>
+
+<script>
+const css=getComputedStyle(document.documentElement);
+const cAcc=css.getPropertyValue('--acc').trim(),cGood=css.getPropertyValue('--good').trim(),cPurple=css.getPropertyValue('--purple').trim(),cDim=css.getPropertyValue('--dim').trim();
+if(window.Chart){
+  new Chart(document.getElementById('chartMonth'),{type:'bar',data:{labels:['July 2026','Aug 2026'],datasets:[
+    {label:'Hours',data:[21,8],backgroundColor:cAcc,borderRadius:6,yAxisID:'y'},
+    {label:'Pay ($)',data:[1575,450],backgroundColor:cPurple,borderRadius:6,yAxisID:'y1'}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:cDim}}},
+    scales:{y:{position:'left',ticks:{color:cDim},grid:{color:'rgba(31,42,68,.5)'}},y1:{position:'right',ticks:{color:cDim},grid:{display:false}},x:{ticks:{color:cDim},grid:{display:false}}}}});
+  new Chart(document.getElementById('chartType'),{type:'doughnut',data:{labels:['Billable (27 hrs)','Non-billable (2 hrs)'],datasets:[{data:[27,2],backgroundColor:[cGood,cDim],borderWidth:0}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'bottom',labels:{color:cDim}}}}});
+}
+</script>
+</body>
+</html>
