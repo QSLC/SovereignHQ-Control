@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Living Calculator — by QSLC</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔷</text></svg>">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{--bg:#0b1120;--card:#131b2e;--card2:#0f1626;--line:#1f2a44;--txt:#e6edf7;--dim:#8b9bb4;--acc:#4da3ff;--good:#34d399;--warn:#fbbf24;--purple:#a78bfa}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6}
+  .wrap{max-width:1000px;margin:0 auto;padding:24px 20px 70px}
+  h1{font-size:2.3rem;background:linear-gradient(90deg,#4da3ff,#a78bfa,#34d399);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
+  .tag{font-size:1.05rem;color:var(--dim);margin:14px 0 8px}
+  .heroimg{border-radius:14px;overflow:hidden;border:1px solid var(--line);margin:22px 0}
+  .heroimg img{width:100%;display:block}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:22px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .card h3{font-size:1rem;margin-bottom:8px}
+  .card p{font-size:.88rem;color:var(--dim)}
+  .big{font-size:1.9rem;font-weight:800;background:linear-gradient(90deg,var(--good),var(--acc));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}
+  @media(max-width:700px){.vs{grid-template-columns:1fr}}
+  .vs .card ul{list-style:none;font-size:.85rem}
+  .vs .card li{padding:6px 0;border-bottom:1px solid rgba(31,42,68,.5)}
+  .vs .card li:last-child{border-bottom:none}
+  .bad-x{color:#f87171;margin-right:8px}
+  .good-x{color:var(--good);margin-right:8px}
+  .price{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:22px 0}
+  .tier{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 22px;position:relative}
+  .tier.hot{border-color:var(--acc);box-shadow:0 0 40px rgba(77,163,255,.15)}
+  .tier .pill{position:absolute;top:-12px;left:22px;background:var(--acc);color:#06121f;font-size:.7rem;font-weight:800;padding:4px 12px;border-radius:99px;letter-spacing:.05em}
+  .tier h3{font-size:.95rem;color:var(--dim);text-transform:uppercase;letter-spacing:.07em}
+  .tier .amt{font-size:2.2rem;font-weight:800;margin:8px 0}
+  .tier .amt small{font-size:.9rem;color:var(--dim);font-weight:400}
+  .tier ul{list-style:none;font-size:.85rem;color:var(--dim)}
+  .tier li{padding:5px 0}
+  .good-x{color:var(--good);margin-right:8px}
+  .cta{display:inline-block;margin-top:26px;background:linear-gradient(90deg,var(--acc),var(--purple));color:#fff;font-weight:700;font-size:1rem;padding:16px 36px;border-radius:12px;text-decoration:none}
+  .cta:hover{opacity:.9}
+  .foot{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);color:var(--dim);font-size:.75rem;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between}
+  h2{font-size:1.3rem;margin:34px 0 6px}
+  .sub2{color:var(--dim);font-size:.9rem;margin-bottom:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>The Living Calculator</h1>
+  <p class="tag">Your finances, recalculated the moment reality changes. Built by QSLC — designed and operated by Eve, an original AI operations agent.</p>
+  <div class="heroimg"><img src="img/hero.png" alt="The Living Calculator"></div>
+
+  <h2>Spreadsheets are dead the second they're saved.</h2>
+  <p class="sub2">A conventional calculator runs <b>inputs → formula → answer</b>, then goes stale. The Living Calculator runs <b>live sources → verified state → formulas → outputs → new events → recalculation</b>. Forever.</p>
+
+  <div class="vs">
+    <div class="card"><h3>☠️ Static spreadsheet</h3><ul>
+      <li><span class="bad-x">✗</span>Stale the moment you close it</li>
+      <li><span class="bad-x">✗</span>One wrong cell poisons everything downstream</li>
+      <li><span class="bad-x">✗</span>No idea which numbers are real vs. typed</li>
+      <li><span class="bad-x">✗</span>Manual rebuild every pay period</li>
+      <li><span class="bad-x">✗</span>Zero audit trail</li>
+    </ul></div>
+    <div class="card"><h3>⚡ The Living Calculator</h3><ul>
+      <li><span class="good-x">✓</span>Recalculates automatically on every new event</li>
+      <li><span class="good-x">✓</span>Every figure traced to a verified source record</li>
+      <li><span class="good-x">✓</span>Source-gated: unconnected sources show as "not connected," never as fake zeros</li>
+      <li><span class="good-x">✓</span>Nightly automated sync — no human re-keying</li>
+      <li><span class="good-x">✓</span>Full evidence ledger: verified, rejected, escalated, pending</li>
+    </ul></div>
+  </div>
+
+  <h2>Five engines. One source of truth.</h2>
+  <div class="grid">
+    <div class="card"><h3>💰 Financial</h3><p>Cash, burn, revenue, payroll liability, receivables — computed from verified records only.</p></div>
+    <div class="card"><h3>⚙️ Operations</h3><p>Hours, output per hour, cost per hour, and completion status across every work session.</p></div>
+    <div class="card"><h3>📈 Sales</h3><p>Leads, conversions, pipeline value and velocity, tracked to their source events.</p></div>
+    <div class="card"><h3>🧠 AI Automation</h3><p>Agent workload, automation coverage, and success rates for every scheduled job.</p></div>
+    <div class="card"><h3>🔐 Risk</h3><p>Unresolved findings, stale data, reconciliation gaps, and evidence pending — surfaced, not hidden.</p></div>
+  </div>
+
+  <h2>Zero-estimation guarantee</h2>
+  <p class="sub2">Most dashboards quietly fill gaps with guesses. The Living Calculator never does. If a source isn't connected, it says so — on the face of the number. Your accountant will never chase a phantom figure through your books again.</p>
+
+  <h2>Pricing</h2>
+  <div class="price">
+    <div class="tier"><h3>Starter</h3><div class="amt">$19<small>/mo</small></div><ul>
+      <li><span class="good-x">✓</span>1 user, 1 business</li>
+      <li><span class="good-x">✓</span>Time billing + nightly sync</li>
+      <li><span class="good-x">✓</span>Financial &amp; Operations engines</li>
+      <li><span class="good-x">✓</span>Live dashboard</li>
+    </ul></div>
+    <div class="tier hot"><div class="pill">MOST POPULAR</div><h3>Business</h3><div class="amt">$49<small>/mo</small></div><ul>
+      <li><span class="good-x">✓</span>Everything in Starter</li>
+      <li><span class="good-x">✓</span>Payroll evidence ledger &amp; audit trail</li>
+      <li><span class="good-x">✓</span>Risk + Sales engines</li>
+      <li><span class="good-x">✓</span>CSV exports &amp; API access</li>
+      <li><span class="good-x">✓</span>Email support</li>
+    </ul></div>
+    <div class="tier"><h3>Enterprise</h3><div class="amt">Custom</div><ul>
+      <li><span class="good-x">✓</span>Everything in Business</li>
+      <li><span class="good-x">✓</span>Multi-entity, multi-user</li>
+      <li><span class="good-x">✓</span>Custom source connectors</li>
+      <li><span class="good-x">✓</span>White-label dashboards</li>
+      <li><span class="good-x">✓</span>Priority setup by our own AI operator</li>
+    </ul></div>
+  </div>
+
+  <a class="cta" href="https://app.base44.com/superagent/6a26b5efb34e302378c5fee9">Book a live demo →</a>
+  <p style="color:var(--dim);font-size:.8rem;margin-top:10px">Talk to Eve — the AI operator who runs a real deployment of this exact product every single day.</p>
+
+  <div class="foot">
+    <span>© 2026 Quantum Sovereign Logistics Corp · The Living Calculator is deployed and running live in production at QSLC</span>
+    <span>See it running: <a href="living-calculator.html" style="color:var(--acc)">Live production dashboard →</a></span>
+  </div>
+</div>
+</body>
+</html>
