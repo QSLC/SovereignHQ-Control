@@ -61,8 +61,8 @@
 
   <div class="grid">
     <div class="card"><h3>💰 Financial</h3>
-      <div class="big" style="color:var(--good)">$2,025</div>
-      <div class="metric-row"><span>Gross billed (27 billable hrs)</span><span>$2,025</span></div>
+      <div class="big" style="color:var(--good)">$2,250</div>
+      <div class="metric-row"><span>Gross billed (27 billable hrs)</span><span>$2,250</span></div>
       <div class="metric-row"><span>Verified payroll payable</span><span>$1,350</span></div>
       <div class="metric-row"><span>Collected revenue</span><span>$0</span></div>
       <div style="margin-top:8px"><span class="pill warn">Stripe: sandbox not connected</span><span class="pill warn">Paychex: awaiting written confirmation</span></div>
@@ -128,6 +128,7 @@
       <tr><th>Period</th><th class="num">Hours</th><th class="num">Rate</th><th class="num">Gross</th><th>Status</th></tr>
       <tr><td>Jul 3 – Jul 28, 2026</td><td class="num">21.0</td><td class="num">$75/hr</td><td class="num">$1,575.00</td><td><span class="pill good">Verified</span></td></tr>
       <tr><td>Aug 27 – Oct 4, 2026</td><td class="num">8.0</td><td class="num">$75/hr</td><td class="num">$450.00</td><td><span class="pill good">Verified</span></td></tr>
+      <tr><td>Oct 8, 2026</td><td class="num">3.0</td><td class="num">$75/hr</td><td class="num">$225.00</td><td><span class="pill good">Verified</span></td></tr>
       <tr><td colspan="4" style="color:var(--dim);font-size:.78rem;padding-top:10px">Rate locked at $75.00/hr · recalculated nightly at 9:00 AM PT by the Daily Billing Sync</td></tr>
     </table>
     </div>
@@ -172,7 +173,7 @@
 const css=getComputedStyle(document.documentElement);
 const cAcc=css.getPropertyValue('--acc').trim(),cGood=css.getPropertyValue('--good').trim(),cPurple=css.getPropertyValue('--purple').trim(),cDim=css.getPropertyValue('--dim').trim();
 if(window.Chart){
-  new Chart(document.getElementById('chartCumulative'),{type:'line',data:{labels:['Jul 3','Jul 28','Aug 31','Oct 4'],datasets:[{label:'Cumulative billed ($)',data:[0,1575,2025,2025],borderColor:cGood,backgroundColor:'rgba(52,211,153,.12)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:cGood}]},
+  new Chart(document.getElementById('chartCumulative'),{type:'line',data:{labels:['Jul 3','Jul 28','Aug 31','Oct 4','Oct 8'],datasets:[{label:'Cumulative billed ($)',data:[0,1575,2025,2025,2250],borderColor:cGood,backgroundColor:'rgba(52,211,153,.12)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:cGood}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:cDim}}},scales:{y:{ticks:{color:cDim},grid:{color:'rgba(31,42,68,.5)'}},x:{ticks:{color:cDim},grid:{display:false}}}}});
   new Chart(document.getElementById('chartEvidence'),{type:'doughnut',data:{labels:['Verified (2)','Rejected (2)','Escalated (1)','Pending (4)'],datasets:[{data:[2,2,1,4],backgroundColor:[cGood,'#f87171',cPurple,cDim],borderWidth:0}]},
     options:{responsive:true,maintainAspectRatio:false,cutout:'58%',plugins:{legend:{position:'bottom',labels:{color:cDim}}}}});
