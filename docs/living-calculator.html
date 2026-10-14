@@ -183,12 +183,12 @@ if(window.Chart){
     {label:'Awaiting source',data:[35,20,0,0,45],borderColor:cPurple,backgroundColor:'rgba(167,139,250,.1)',pointBackgroundColor:cPurple}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:cDim}}},scales:{r:{min:0,max:100,ticks:{display:false},grid:{color:'rgba(31,42,68,.5)'},angleLines:{color:'rgba(31,42,68,.5)'},pointLabels:{color:cDim}}}}});
 
-  new Chart(document.getElementById('chartMonth'),{type:'bar',data:{labels:['July 2026','Aug 2026'],datasets:[
-    {label:'Hours',data:[21,8],backgroundColor:cAcc,borderRadius:6,yAxisID:'y'},
+  new Chart(document.getElementById('chartMonth'),{type:'bar',data:{labels:['July 2026','Aug 2026','Oct 2026'],datasets:[
+    {label:'Hours',data:[21,8,3],backgroundColor:cAcc,borderRadius:6,yAxisID:'y'},
     {label:'Pay ($)',data:[1575,450,225],backgroundColor:cPurple,borderRadius:6,yAxisID:'y1'}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:cDim}}},
     scales:{y:{position:'left',ticks:{color:cDim},grid:{color:'rgba(31,42,68,.5)'}},y1:{position:'right',ticks:{color:cDim},grid:{display:false}},x:{ticks:{color:cDim},grid:{display:false}}}}});
-  new Chart(document.getElementById('chartType'),{type:'doughnut',data:{labels:['Billable (27 hrs)','Non-billable (2 hrs)'],datasets:[{data:[27,2],backgroundColor:[cGood,cDim],borderWidth:0}]},
+  new Chart(document.getElementById('chartType'),{type:'doughnut',data:{labels:['Billable (30 hrs)','Non-billable (2 hrs)'],datasets:[{data:[30,2],backgroundColor:[cGood,cDim],borderWidth:0}]},
     options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'bottom',labels:{color:cDim}}}}});
 }
 </script>
