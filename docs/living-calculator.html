@@ -51,7 +51,7 @@
       <h1>QSLC Living Calculator</h1>
       <div class="sub">Quantum Sovereign Logistics Corp · SovereignHQ Control Plane · verified data only</div>
     </div>
-    <div class="live"><span class="dot"></span>LIVE · synced 2026-10-08</div>
+    <div class="live"><span class="dot"></span>LIVE · synced 2026-10-14</div>
   </header>
 
   <div style="border-radius:14px;overflow:hidden;border:1px solid var(--line);margin-bottom:22px">
@@ -62,17 +62,17 @@
   <div class="grid">
     <div class="card"><h3>💰 Financial</h3>
       <div class="big" style="color:var(--good)">$2,250</div>
-      <div class="metric-row"><span>Gross billed (27 billable hrs)</span><span>$2,250</span></div>
+      <div class="metric-row"><span>Gross billed (30 billable hrs)</span><span>$2,250</span></div>
       <div class="metric-row"><span>Verified payroll payable</span><span>$1,350</span></div>
       <div class="metric-row"><span>Collected revenue</span><span>$0</span></div>
       <div style="margin-top:8px"><span class="pill warn">Stripe: sandbox not connected</span><span class="pill warn">Paychex: awaiting written confirmation</span></div>
     </div>
     <div class="card"><h3>⚙️ Operations</h3>
-      <div class="big">29 hrs</div>
-      <div class="metric-row"><span>Billable</span><span>27 hrs</span></div>
+      <div class="big">32 hrs</div>
+      <div class="metric-row"><span>Billable</span><span>30 hrs</span></div>
       <div class="metric-row"><span>Non-billable / admin</span><span>2 hrs</span></div>
-      <div class="metric-row"><span>Time entries</span><span>8</span></div>
-      <div style="margin-top:8px"><span class="pill warn">Last entry Aug 31 (38 days)</span></div>
+      <div class="metric-row"><span>Time entries</span><span>9</span></div>
+      <div style="margin-top:8px"><span class="pill warn">Last entry Oct 8 (6 days)</span></div>
     </div>
     <div class="card"><h3>📈 Sales</h3>
       <div class="big">0</div>
@@ -154,6 +154,7 @@
     <div class="card" style="padding:0;overflow:hidden">
     <table>
       <tr><th>Date</th><th>Task</th><th class="num">Hrs</th><th class="num">Pay</th><th>Type</th></tr>
+      <tr><td>Oct 8</td><td>Living Calculator v2 + sales page, data purge, CI repair</td><td class="num">3</td><td class="num">$225</td><td><span class="pill good">Billable</span></td></tr>
       <tr><td>Aug 31</td><td>SovereignHQ PWA deployment + sync scripts + security review</td><td class="num">4</td><td class="num">$300</td><td><span class="pill good">Billable</span></td></tr>
       <tr><td>Aug 31</td><td>SSOT_1010_EVE_HEI_VISUAL contamination review</td><td class="num">1</td><td class="num">$0</td><td><span class="pill dim">Non-billable</span></td></tr>
       <tr><td>Aug 27</td><td>Cloudflare redirect &amp; system domain fix</td><td class="num">2</td><td class="num">$150</td><td><span class="pill good">Billable</span></td></tr>
@@ -173,7 +174,7 @@
 const css=getComputedStyle(document.documentElement);
 const cAcc=css.getPropertyValue('--acc').trim(),cGood=css.getPropertyValue('--good').trim(),cPurple=css.getPropertyValue('--purple').trim(),cDim=css.getPropertyValue('--dim').trim();
 if(window.Chart){
-  new Chart(document.getElementById('chartCumulative'),{type:'line',data:{labels:['Jul 3','Jul 28','Aug 31','Oct 4','Oct 8'],datasets:[{label:'Cumulative billed ($)',data:[0,1575,2025,2025,2250],borderColor:cGood,backgroundColor:'rgba(52,211,153,.12)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:cGood}]},
+  new Chart(document.getElementById('chartCumulative'),{type:'line',data:{labels:['Jul 3','Jul 28','Aug 31','Oct 4','Oct 8','Oct 14'],datasets:[{label:'Cumulative billed ($)',data:[0,1575,2025,2025,2250,2250],borderColor:cGood,backgroundColor:'rgba(52,211,153,.12)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:cGood}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:cDim}}},scales:{y:{ticks:{color:cDim},grid:{color:'rgba(31,42,68,.5)'}},x:{ticks:{color:cDim},grid:{display:false}}}}});
   new Chart(document.getElementById('chartEvidence'),{type:'doughnut',data:{labels:['Verified (2)','Rejected (2)','Escalated (1)','Pending (4)'],datasets:[{data:[2,2,1,4],backgroundColor:[cGood,'#f87171',cPurple,cDim],borderWidth:0}]},
     options:{responsive:true,maintainAspectRatio:false,cutout:'58%',plugins:{legend:{position:'bottom',labels:{color:cDim}}}}});
@@ -184,7 +185,7 @@ if(window.Chart){
 
   new Chart(document.getElementById('chartMonth'),{type:'bar',data:{labels:['July 2026','Aug 2026'],datasets:[
     {label:'Hours',data:[21,8],backgroundColor:cAcc,borderRadius:6,yAxisID:'y'},
-    {label:'Pay ($)',data:[1575,450],backgroundColor:cPurple,borderRadius:6,yAxisID:'y1'}]},
+    {label:'Pay ($)',data:[1575,450,225],backgroundColor:cPurple,borderRadius:6,yAxisID:'y1'}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:cDim}}},
     scales:{y:{position:'left',ticks:{color:cDim},grid:{color:'rgba(31,42,68,.5)'}},y1:{position:'right',ticks:{color:cDim},grid:{display:false}},x:{ticks:{color:cDim},grid:{display:false}}}}});
   new Chart(document.getElementById('chartType'),{type:'doughnut',data:{labels:['Billable (27 hrs)','Non-billable (2 hrs)'],datasets:[{data:[27,2],backgroundColor:[cGood,cDim],borderWidth:0}]},
