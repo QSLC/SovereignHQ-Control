@@ -1,5 +1,11 @@
 # QSLC SovereignHQ — Free-First Web App
 
+<p align="center">
+  <a href="https://qslc-hei.com/" target="_blank" rel="noreferrer">Live App</a> |
+  <a href="https://github.com/QSLC/SovereignHQ-Control" target="_blank" rel="noreferrer">GitHub</a> |
+  <a href="https://github.com/QSLC" target="_blank" rel="noreferrer">QSLC Org</a>
+</p>
+
 A deployable PWA for Quantum Sovereign Logistics Corp.
 Built with GitHub + Cloudflare Pages + Supabase Free + Stripe.
 
