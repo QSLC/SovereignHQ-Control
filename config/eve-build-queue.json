@@ -1,0 +1,142 @@
+{
+  "schema": "qslc.eve.build-queue.v1",
+  "updated_date": "2026-10-21",
+  "stop_requested": false,
+  "worker_automation_id": "6abbd8d646408191bda7e67fac716129",
+  "canonical_repository": "QSLC/Sovereign-QSLC_SSOT",
+  "owner_tracking_issue": "https://github.com/QSLC/SovereignHQ-Control/issues/7",
+  "execution": {
+    "max_task_attempts": 3,
+    "lease_minutes": 45,
+    "concurrency": 1,
+    "resume_on_next_scheduled_run": true,
+    "checkpoint_after_each_step": true,
+    "completion_requires": [
+      "current_source_revision",
+      "passing_relevant_checks",
+      "deployment_receipt_when_applicable",
+      "independent_readback_when_applicable"
+    ],
+    "unavailable_provider": "checkpoint_blocker_and_continue_independent_task",
+    "secrets": "provider_secret_store_only",
+    "public_data": "sanitized_only"
+  },
+  "tasks": [
+    {
+      "id": "EVE-MP40",
+      "priority": 1,
+      "status": "queued",
+      "depends_on": [],
+      "repository": "QSLC/Sovereign-QSLC_SSOT",
+      "objective": "Finish and verify existing owner-authorized durable command intake and SSOT writes; inspect current MP40 implementation first.",
+      "acceptance": [
+        "Authenticated request returns a durable job ID only after storage succeeds",
+        "Duplicate requests have exactly one intended effect",
+        "Owner-session write/readback matches the job ID",
+        "Relevant tests and deployed source match"
+      ],
+      "attempts": 0,
+      "lease": null,
+      "checkpoint": null,
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "EVE-FULFILLMENT",
+      "priority": 2,
+      "status": "queued",
+      "depends_on": [],
+      "repository": "QSLC/Sovereign-QSLC_SSOT",
+      "objective": "Complete the existing signed Stripe payment-to-customer-access path using corporate catalog; use isolated fixtures and existing test mode for payment simulation; do not create live charges.",
+      "acceptance": [
+        "Webhook rejects invalid signatures and replay duplicates",
+        "Customer receives only purchased tenant-scoped access",
+        "Billing cancellation and failed payment states are handled",
+        "Deployed entitlement readback independently verified"
+      ],
+      "attempts": 0,
+      "lease": null,
+      "checkpoint": null,
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "EVE-MP41",
+      "priority": 3,
+      "status": "queued",
+      "depends_on": [
+        "EVE-MP40"
+      ],
+      "repository": "QSLC/Sovereign-QSLC_SSOT",
+      "objective": "Implement independent heartbeat, freshness and actionable failure state using existing MP41.",
+      "acceptance": [
+        "A stale heartbeat changes status from healthy",
+        "Unavailable provider is unknown or blocked, not green",
+        "Independent probe records timestamp and deployed revision"
+      ],
+      "attempts": 0,
+      "lease": null,
+      "checkpoint": null,
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "EVE-MP42",
+      "priority": 4,
+      "status": "queued",
+      "depends_on": [
+        "EVE-MP40"
+      ],
+      "repository": "QSLC/Sovereign-QSLC_SSOT",
+      "objective": "Complete recovery and reconciliation with source lineage using existing MP42.",
+      "acceptance": [
+        "Recovery drill preserves original records",
+        "Retries reconcile exactly once",
+        "Audit links request, source, effect and readback"
+      ],
+      "attempts": 0,
+      "lease": null,
+      "checkpoint": null,
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "EVE-SSOT-PRIVACY",
+      "priority": 2,
+      "status": "queued",
+      "depends_on": [],
+      "repository": null,
+      "objective": "Restrict canonical private ledger anonymous access through owner-authorized controls, then reconcile pending source-backed records.",
+      "acceptance": [
+        "No anonymous private ledger access",
+        "Authorized edit and readback verified",
+        "No inferred wages, settlements or balances"
+      ],
+      "attempts": 0,
+      "lease": null,
+      "checkpoint": null,
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "EVE-MOBILE",
+      "priority": 5,
+      "status": "queued",
+      "depends_on": [
+        "EVE-MP40"
+      ],
+      "repository": "QSLC/Sovereign-QSLC_SSOT",
+      "objective": "Connect existing iPhone Shortcut to the verified authenticated intake without embedding secrets in public exports.",
+      "acceptance": [
+        "Real installed Shortcut or verified share artifact distinguished from instructions",
+        "Harmless command reaches durable job and readback",
+        "Repeated delivery remains idempotent"
+      ],
+      "attempts": 0,
+      "lease": null,
+      "checkpoint": null,
+      "evidence": [],
+      "blockers": []
+    }
+  ]
+}
