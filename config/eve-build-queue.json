@@ -167,7 +167,7 @@
     {
       "id": "EVE-SSOT-PRIVACY",
       "priority": 2,
-      "status": "in_progress",
+      "status": "blocked",
       "depends_on": [],
       "repository": null,
       "objective": "Restrict canonical private ledger anonymous access through owner-authorized controls, then reconcile pending source-backed records.",
@@ -177,18 +177,32 @@
         "No inferred wages, settlements or balances"
       ],
       "attempts": 0,
-      "lease": {
-        "run_id": "eve-build-privacy-20261021T1152Z",
-        "claimed_at": "2026-10-21T11:52:00Z",
-        "expires_at": "2026-10-21T12:37:00Z"
-      },
+      "lease": null,
       "checkpoint": {
-        "step": "claimed",
-        "updated_at": "2026-10-21T11:52:00Z",
-        "detail": "Inspect canonical ledger sharing with stable file ID; remove anonymous writer only through authorized Drive controls, preserve named human access, then verify denial and owner readback."
+        "step": "provider_permission_blocked",
+        "updated_at": "2026-10-21T11:55:00Z",
+        "detail": "Drive connector resolved the canonical file ID and reports shared=true with latest source metadata, but exposes only grant-sharing actions; it cannot list or revoke the anonymous writer permission. No confidential data was read or written and no browser permission change was attempted."
       },
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        {
+          "type": "provider_metadata",
+          "source": "Google Drive connector",
+          "file_id": "18NQPvRsWsjC_lje9VoSYSXLHGtbdEN4-sq4sSl9P9fw",
+          "title": "$CEC_WAM_MASTER_LEDGER_LIVE_CANONICAL",
+          "shared": true,
+          "updated_at": "2026-10-21T07:28:02.680Z",
+          "observed_at": "2026-10-21T11:55:00Z"
+        }
+      ],
+      "blockers": [
+        {
+          "provider": "Google Drive",
+          "operation": "list and revoke anonymous file permission",
+          "error": "Connected Drive action set provides share_file grants but no permission-list or permission-delete capability.",
+          "observed_at": "2026-10-21T11:55:00Z",
+          "action": "Reconnect with authorized Drive permission-management scope or complete the owner-confirmed sharing change in the Google UI; then verify anonymous denial and authorized edit/readback before private writes."
+        }
+      ]
     },
     {
       "id": "EVE-MOBILE",
