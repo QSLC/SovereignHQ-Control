@@ -25,7 +25,7 @@
     {
       "id": "EVE-MP40",
       "priority": 1,
-      "status": "queued",
+      "status": "in_progress",
       "depends_on": [],
       "repository": "QSLC/Sovereign-QSLC_SSOT",
       "objective": "Finish and verify existing owner-authorized durable command intake and SSOT writes; inspect current MP40 implementation first.",
@@ -36,8 +36,16 @@
         "Relevant tests and deployed source match"
       ],
       "attempts": 0,
-      "lease": null,
-      "checkpoint": null,
+      "lease": {
+        "run_id": "eve-build-20261021T1138Z",
+        "claimed_at": "2026-10-21T11:38:00Z",
+        "expires_at": "2026-10-21T12:23:00Z"
+      },
+      "checkpoint": {
+        "step": "claimed",
+        "updated_at": "2026-10-21T11:38:00Z",
+        "detail": "Resuming MP-40 from merged source; inspect Jira, current main, deployment status and first missing acceptance boundary."
+      },
       "evidence": [],
       "blockers": []
     },
