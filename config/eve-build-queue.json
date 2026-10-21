@@ -25,7 +25,7 @@
     {
       "id": "EVE-MP40",
       "priority": 1,
-      "status": "in_progress",
+      "status": "blocked",
       "depends_on": [],
       "repository": "QSLC/Sovereign-QSLC_SSOT",
       "objective": "Finish and verify existing owner-authorized durable command intake and SSOT writes; inspect current MP40 implementation first.",
@@ -36,18 +36,29 @@
         "Relevant tests and deployed source match"
       ],
       "attempts": 0,
-      "lease": {
-        "run_id": "eve-build-20261021T1138Z",
-        "claimed_at": "2026-10-21T11:38:00Z",
-        "expires_at": "2026-10-21T12:23:00Z"
-      },
+      "lease": null,
       "checkpoint": {
-        "step": "claimed",
-        "updated_at": "2026-10-21T11:38:00Z",
-        "detail": "Resuming MP-40 from merged source; inspect Jira, current main, deployment status and first missing acceptance boundary."
+        "step": "provider_blocked",
+        "updated_at": "2026-10-21T11:44:00Z",
+        "detail": "Current main 418b01f3 includes merged MP-40 source from 105cec7f; Cloudflare whoami and documentation calls both returned provider Internal error. Latest repaired Worker cannot be deployed or owner-session replayed in this checkpoint."
       },
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        {
+          "type": "source",
+          "sha": "418b01f3203302440e3d4f8a651ebee01076736a",
+          "url": "https://github.com/QSLC/Sovereign-QSLC_SSOT/commit/418b01f3203302440e3d4f8a651ebee01076736a",
+          "observed_at": "2026-10-21T11:44:00Z"
+        }
+      ],
+      "blockers": [
+        {
+          "provider": "Cloudflare",
+          "operation": "identity and deployment access",
+          "error": "MCP -32603 Internal error",
+          "observed_at": "2026-10-21T11:44:00Z",
+          "action": "Retry only after provider connection changes; do not bypass Cloudflare Access."
+        }
+      ]
     },
     {
       "id": "EVE-FULFILLMENT",
