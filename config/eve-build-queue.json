@@ -167,7 +167,7 @@
     {
       "id": "EVE-SSOT-PRIVACY",
       "priority": 2,
-      "status": "queued",
+      "status": "in_progress",
       "depends_on": [],
       "repository": null,
       "objective": "Restrict canonical private ledger anonymous access through owner-authorized controls, then reconcile pending source-backed records.",
@@ -177,8 +177,16 @@
         "No inferred wages, settlements or balances"
       ],
       "attempts": 0,
-      "lease": null,
-      "checkpoint": null,
+      "lease": {
+        "run_id": "eve-build-privacy-20261021T1152Z",
+        "claimed_at": "2026-10-21T11:52:00Z",
+        "expires_at": "2026-10-21T12:37:00Z"
+      },
+      "checkpoint": {
+        "step": "claimed",
+        "updated_at": "2026-10-21T11:52:00Z",
+        "detail": "Inspect canonical ledger sharing with stable file ID; remove anonymous writer only through authorized Drive controls, preserve named human access, then verify denial and owner readback."
+      },
       "evidence": [],
       "blockers": []
     },
