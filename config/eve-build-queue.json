@@ -63,7 +63,7 @@
     {
       "id": "EVE-FULFILLMENT",
       "priority": 2,
-      "status": "in_progress",
+      "status": "blocked",
       "depends_on": [],
       "repository": "QSLC/Sovereign-QSLC_SSOT",
       "objective": "Complete the existing signed Stripe payment-to-customer-access path using corporate catalog; use isolated fixtures and existing test mode for payment simulation; do not create live charges.",
@@ -74,30 +74,55 @@
         "Deployed entitlement readback independently verified"
       ],
       "attempts": 1,
-      "lease": {
-        "run_id": "eve-build-fulfillment-20261021T1146Z",
-        "claimed_at": "2026-10-21T11:46:00Z",
-        "expires_at": "2026-10-21T12:31:00Z"
-      },
+      "lease": null,
       "checkpoint": {
-        "step": "source_implemented",
-        "updated_at": "2026-10-21T11:56:00Z",
-        "detail": "Implemented durable D1 event receipts for direct-sale fulfillment, duplicate acknowledgement without a second KV entitlement write, and fail-closed behavior when D1 is unavailable. Local isolated suite: 6/6 passed. Branch head dbdf7112; opening exact-head PR checks next."
+        "step": "merged_live_activation_unverified",
+        "updated_at": "2026-10-21T11:50:00Z",
+        "detail": "PR25 merged as 40f1fa5c after every exact-head check passed. Main-branch build/deploy/smoke/secret-shape/entitlement-health/analyzers passed and GitHub Pages release attestation matched 40f1fa5c. Canonical live health reports D1/KV/secret ready, but live_purchase_activation_verified=false; a real signed paid-event replay/readback was not performed and is not claimed."
       },
       "evidence": [
         {
-          "type": "source",
-          "sha": "dbdf7112a48cee19b5b4e643d27b6d0ac22d49d0",
-          "url": "https://github.com/QSLC/Sovereign-QSLC_SSOT/commit/dbdf7112a48cee19b5b4e643d27b6d0ac22d49d0",
-          "observed_at": "2026-10-21T11:56:00Z"
+          "type": "pull_request",
+          "sha": "aadc3dfe55f4605cb22366eeb0193e963a6a5d49",
+          "url": "https://github.com/QSLC/Sovereign-QSLC_SSOT/pull/25",
+          "observed_at": "2026-10-21T11:46:00Z"
         },
         {
-          "type": "test",
-          "summary": "node --test scripts/calculator.test.mjs: 6 passed, 0 failed",
-          "observed_at": "2026-10-21T11:56:00Z"
+          "type": "merge",
+          "sha": "40f1fa5cf732c463e187e04bc04ae0e739acc3c4",
+          "url": "https://github.com/QSLC/Sovereign-QSLC_SSOT/commit/40f1fa5cf732c463e187e04bc04ae0e739acc3c4",
+          "observed_at": "2026-10-21T11:46:00Z"
+        },
+        {
+          "type": "pr_checks",
+          "sha": "aadc3dfe55f4605cb22366eeb0193e963a6a5d49",
+          "url": "https://github.com/QSLC/Sovereign-QSLC_SSOT/pull/25/checks",
+          "summary": "All exact-head checks successful or neutral; calculator/fulfillment suite 6/6.",
+          "observed_at": "2026-10-21T11:46:00Z"
+        },
+        {
+          "type": "post_merge",
+          "sha": "40f1fa5cf732c463e187e04bc04ae0e739acc3c4",
+          "url": "https://github.com/QSLC/Sovereign-QSLC_SSOT/actions/runs/39594494473",
+          "summary": "Main build, deploy, smoke and release-attestation readback passed; attestation matched merge SHA.",
+          "observed_at": "2026-10-21T11:50:00Z"
+        },
+        {
+          "type": "live_readback",
+          "url": "https://qslc-hei.com/api/entitlement/health",
+          "summary": "ok=true; kv_bound=true; webhook_secret_configured=true; calculator_storage_ready=true; live_purchase_activation_verified=false",
+          "observed_at": "2026-10-21T11:50:00Z"
         }
       ],
-      "blockers": []
+      "blockers": [
+        {
+          "provider": "Cloudflare/Stripe live boundary",
+          "operation": "signed paid-event fulfillment and exact entitlement readback",
+          "error": "Cloudflare connector returned MCP -32603 Internal error; canonical live health explicitly reports live_purchase_activation_verified=false.",
+          "observed_at": "2026-10-21T11:50:00Z",
+          "action": "Retry after provider connection is healthy; use an authorized corporate-account signed event without issuing a live charge, then verify exactly one entitlement and cancellation/failure behavior."
+        }
+      ]
     },
     {
       "id": "EVE-MP41",
