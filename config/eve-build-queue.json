@@ -76,9 +76,9 @@
       "attempts": 1,
       "lease": null,
       "checkpoint": {
-        "step": "merged_live_activation_unverified",
-        "updated_at": "2026-10-21T11:50:00Z",
-        "detail": "PR25 merged as 40f1fa5c after every exact-head check passed. Main-branch build/deploy/smoke/secret-shape/entitlement-health/analyzers passed and GitHub Pages release attestation matched 40f1fa5c. Canonical live health reports D1/KV/secret ready, but live_purchase_activation_verified=false; a real signed paid-event replay/readback was not performed and is not claimed."
+        "step": "merged_awaiting_source_event_and_cloudflare_access",
+        "updated_at": "2026-10-21T12:00:00Z",
+        "detail": "PR25 remains merged and post-merge checks passed. Fresh corporate live Stripe read confirms the EVE entitlement webhook is enabled at the existing Pages endpoint for checkout, subscription and invoice lifecycle events, but the account has zero checkout.session.completed events. Cloudflare identity still returns MCP -32603 Internal error. No live charge was created, so live activation/readback remains unverified."
       },
       "evidence": [
         {
@@ -112,15 +112,21 @@
           "url": "https://qslc-hei.com/api/entitlement/health",
           "summary": "ok=true; kv_bound=true; webhook_secret_configured=true; calculator_storage_ready=true; live_purchase_activation_verified=false",
           "observed_at": "2026-10-21T11:50:00Z"
+        },
+        {
+          "type": "stripe_readback",
+          "account": "corporate live account",
+          "summary": "EVE entitlement webhook enabled at sovereign-qslc-ssot.pages.dev for checkout/subscription/invoice lifecycle events; checkout.session.completed event count=0.",
+          "observed_at": "2026-10-21T12:00:00Z"
         }
       ],
       "blockers": [
         {
           "provider": "Cloudflare/Stripe live boundary",
           "operation": "signed paid-event fulfillment and exact entitlement readback",
-          "error": "Cloudflare connector returned MCP -32603 Internal error; canonical live health explicitly reports live_purchase_activation_verified=false.",
-          "observed_at": "2026-10-21T11:50:00Z",
-          "action": "Retry after provider connection is healthy; use an authorized corporate-account signed event without issuing a live charge, then verify exactly one entitlement and cancellation/failure behavior."
+          "error": "Cloudflare whoami still returns MCP -32603 Internal error. Corporate live Stripe is readable, but there are no checkout.session.completed events available for a source-backed activation replay.",
+          "observed_at": "2026-10-21T12:00:00Z",
+          "action": "Do not create a live test charge. Retry Cloudflare after connection recovery; when an authorized real corporate checkout completes, verify one durable event receipt, one entitlement, and exact tenant-scoped readback."
         }
       ]
     },
