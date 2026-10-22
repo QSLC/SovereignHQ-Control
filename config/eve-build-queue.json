@@ -42,9 +42,9 @@
         "expires_at": "2026-10-22T18:01:19Z"
       },
       "checkpoint": {
-        "step": "provider_access_recovered_claimed",
-        "updated_at": "2026-10-22T17:16:19Z",
-        "detail": "Cloudflare whoami succeeded for the authorized connected identity. MP-40 claimed for current source, deployment, and owner-session verification; attempts unchanged until a real implementation attempt."
+        "step": "production_source_repaired_continuing_durable_command_receipt",
+        "updated_at": "2026-10-22T17:23:42.523Z",
+        "detail": "Cloudflare access recovered. Current exact-head main e1fe348f passed all substantive checks. Deployed qslc-hei-site content-only as deployment 2b122a54e4024c32b957b53acac5498c; all four binding types preserved. Deployed module SHA-256 exactly matches repository Worker blob af438288. D1 required tables exist. Anonymous admin route remains denied by Cloudflare Access. Remaining MP-40 gap: command intake must return a durable job ID and enforce idempotent duplicate handling; positive owner-session write/readback remains unverified."
       },
       "evidence": [
         {
@@ -58,6 +58,32 @@
           "provider": "Cloudflare",
           "summary": "whoami succeeded for authorized connected identity",
           "observed_at": "2026-10-22T17:16:19Z"
+        },
+        {
+          "type": "current_source",
+          "sha": "e1fe348f8c18023793effdaffad0d8dfcf029c58",
+          "url": "https://github.com/QSLC/Sovereign-QSLC_SSOT/commit/e1fe348f8c18023793effdaffad0d8dfcf029c58",
+          "summary": "All substantive exact-head checks passed; Worker blob af43828860fb9584a3705c443c962ebc158d01d7.",
+          "observed_at": "2026-10-22T17:23:42.523Z"
+        },
+        {
+          "type": "deployment",
+          "provider": "Cloudflare Workers",
+          "deployment_id": "2b122a54e4024c32b957b53acac5498c",
+          "summary": "Content-only qslc-hei-site deployment; workflow, D1, secret and KV bindings preserved.",
+          "observed_at": "2026-10-22T17:23:42.523Z"
+        },
+        {
+          "type": "deployment_readback",
+          "sha256": "e23ddcc48a1c481e3fba55e11c5ecdbdf1c55b7d2f7a4756733bddb4051f4e76",
+          "summary": "Extracted live module exactly matched the repository source bytes; D1 audit_log, command_queue, idempotency_keys and ssot_metrics tables present.",
+          "observed_at": "2026-10-22T17:23:42.523Z"
+        },
+        {
+          "type": "anonymous_denial",
+          "url": "https://admin.qslc-hei.com/",
+          "summary": "Anonymous request redirected to Cloudflare Access login.",
+          "observed_at": "2026-10-22T17:23:42.523Z"
         }
       ],
       "blockers": []
