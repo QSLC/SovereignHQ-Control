@@ -1,6 +1,6 @@
 {
   "schema": "qslc.eve.build-queue.v1",
-  "updated_date": "2026-10-21",
+  "updated_date": "2026-10-22",
   "stop_requested": false,
   "worker_automation_id": "6abbd8d646408191bda7e67fac716129",
   "canonical_repository": "QSLC/Sovereign-QSLC_SSOT",
@@ -25,7 +25,7 @@
     {
       "id": "EVE-MP40",
       "priority": 1,
-      "status": "blocked",
+      "status": "in_progress",
       "depends_on": [],
       "repository": "QSLC/Sovereign-QSLC_SSOT",
       "objective": "Finish and verify existing owner-authorized durable command intake and SSOT writes; inspect current MP40 implementation first.",
@@ -36,11 +36,15 @@
         "Relevant tests and deployed source match"
       ],
       "attempts": 0,
-      "lease": null,
+      "lease": {
+        "holder": "eve-build-20261022T171619Z-mp40",
+        "acquired_at": "2026-10-22T17:16:19Z",
+        "expires_at": "2026-10-22T18:01:19Z"
+      },
       "checkpoint": {
-        "step": "provider_blocked",
-        "updated_at": "2026-10-21T11:44:00Z",
-        "detail": "Current main 418b01f3 includes merged MP-40 source from 105cec7f; Cloudflare whoami and documentation calls both returned provider Internal error. Latest repaired Worker cannot be deployed or owner-session replayed in this checkpoint."
+        "step": "provider_access_recovered_claimed",
+        "updated_at": "2026-10-22T17:16:19Z",
+        "detail": "Cloudflare whoami succeeded for the authorized connected identity. MP-40 claimed for current source, deployment, and owner-session verification; attempts unchanged until a real implementation attempt."
       },
       "evidence": [
         {
@@ -48,17 +52,15 @@
           "sha": "418b01f3203302440e3d4f8a651ebee01076736a",
           "url": "https://github.com/QSLC/Sovereign-QSLC_SSOT/commit/418b01f3203302440e3d4f8a651ebee01076736a",
           "observed_at": "2026-10-21T11:44:00Z"
+        },
+        {
+          "type": "provider_identity",
+          "provider": "Cloudflare",
+          "summary": "whoami succeeded for authorized connected identity",
+          "observed_at": "2026-10-22T17:16:19Z"
         }
       ],
-      "blockers": [
-        {
-          "provider": "Cloudflare",
-          "operation": "identity and deployment access",
-          "error": "MCP -32603 Internal error",
-          "observed_at": "2026-10-21T11:44:00Z",
-          "action": "Retry only after provider connection changes; do not bypass Cloudflare Access."
-        }
-      ]
+      "blockers": []
     },
     {
       "id": "EVE-FULFILLMENT",
