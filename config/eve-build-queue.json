@@ -25,7 +25,7 @@
     {
       "id": "EVE-MP40",
       "priority": 1,
-      "status": "in_progress",
+      "status": "blocked",
       "depends_on": [],
       "repository": "QSLC/Sovereign-QSLC_SSOT",
       "objective": "Finish and verify existing owner-authorized durable command intake and SSOT writes; inspect current MP40 implementation first.",
@@ -36,15 +36,11 @@
         "Relevant tests and deployed source match"
       ],
       "attempts": 0,
-      "lease": {
-        "holder": "eve-build-20261022T171619Z-mp40",
-        "acquired_at": "2026-10-22T17:16:19Z",
-        "expires_at": "2026-10-22T18:01:19Z"
-      },
+      "lease": null,
       "checkpoint": {
-        "step": "production_source_repaired_continuing_durable_command_receipt",
-        "updated_at": "2026-10-22T17:23:42.523Z",
-        "detail": "Cloudflare access recovered. Current exact-head main e1fe348f passed all substantive checks. Deployed qslc-hei-site content-only as deployment 2b122a54e4024c32b957b53acac5498c; all four binding types preserved. Deployed module SHA-256 exactly matches repository Worker blob af438288. D1 required tables exist. Anonymous admin route remains denied by Cloudflare Access. Remaining MP-40 gap: command intake must return a durable job ID and enforce idempotent duplicate handling; positive owner-session write/readback remains unverified."
+        "step": "implementation_tested_pr_open_waiting_exact_head_checks",
+        "updated_at": "2026-10-22T17:32:28.420Z",
+        "detail": "Production source drift was repaired first. Then PR27 implemented the remaining durable command receipt boundary at exact head b01707816e90efb1f87f5ce1ee16d8cd2390284b. MP-33 verify passed 19/19 Worker tests, 7/7 Python tests and Docker build; CodeQL/security/readiness/validation/signature checks passed. Merge held because GitHub still reports the aggregate build check and a skipped Cloudflare Pages preview check as in_progress. No production migration or new command code deployed."
       },
       "evidence": [
         {
@@ -84,9 +80,31 @@
           "url": "https://admin.qslc-hei.com/",
           "summary": "Anonymous request redirected to Cloudflare Access login.",
           "observed_at": "2026-10-22T17:23:42.523Z"
+        },
+        {
+          "type": "pull_request",
+          "sha": "b01707816e90efb1f87f5ce1ee16d8cd2390284b",
+          "url": "https://github.com/QSLC/Sovereign-QSLC_SSOT/pull/27",
+          "summary": "Durable idempotent command job IDs, additive migration, audit receipt, and duplicate/conflict behavior.",
+          "observed_at": "2026-10-22T17:32:28.420Z"
+        },
+        {
+          "type": "test_run",
+          "sha": "b01707816e90efb1f87f5ce1ee16d8cd2390284b",
+          "url": "https://github.com/QSLC/Sovereign-QSLC_SSOT/actions/runs/39822544060",
+          "summary": "MP-33 verify passed 19/19 Worker tests, 7/7 Python tests and Docker build.",
+          "observed_at": "2026-10-22T17:32:28.420Z"
         }
       ],
-      "blockers": []
+      "blockers": [
+        {
+          "provider": "GitHub / Cloudflare Pages",
+          "operation": "merge PR27 on exact current head",
+          "error": "All substantive build/test/security steps passed, but GitHub check-run state still shows aggregate build in_progress and Cloudflare Pages preview ef080daf-a579-4488-9e64-76644a700016 in_progress even though the workflow run completed success and the Cloudflare preview deployment stage is recorded skipped.",
+          "observed_at": "2026-10-22T17:32:28.420Z",
+          "action": "Re-read exact-head check state on the next run. Merge only after pending checks resolve successfully or neutral; then apply the reviewed additive D1 migration, deploy the merged Worker, and verify owner-session job receipt/readback."
+        }
+      ]
     },
     {
       "id": "EVE-FULFILLMENT",
