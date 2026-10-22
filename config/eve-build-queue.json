@@ -25,7 +25,7 @@
     {
       "id": "EVE-MP40",
       "priority": 1,
-      "status": "in_progress",
+      "status": "blocked",
       "depends_on": [],
       "repository": "QSLC/Sovereign-QSLC_SSOT",
       "objective": "Finish and verify existing owner-authorized durable command intake and SSOT writes; inspect current MP40 implementation first.",
@@ -36,16 +36,11 @@
         "Relevant tests and deployed source match"
       ],
       "attempts": 0,
-      "lease": {
-        "run_id": "eve-build-20261022T183303866Z-mp40",
-        "claimed_at": "2026-10-22T18:33:03.866Z",
-        "expires_at": "2026-10-22T19:18:03.866Z",
-        "worker": "EVE Build Agent"
-      },
+      "lease": null,
       "checkpoint": {
-        "step": "claim_resume_merge_deploy",
-        "updated_at": "2026-10-22T18:33:03.866Z",
-        "detail": "Exact PR27 head unchanged. All substantive build/test/security checks passed. GitHub Actions run 39822544083 completed success and every build step succeeded; its job check is stale in_progress. Cloudflare preview ef080daf was provider-skipped, not failed. Branch rulesets endpoint returns none; PR is mergeable. Proceeding with exact-head guarded merge and post-merge verification."
+        "step": "merged_migrated_deployed_waiting_owner_session_and_post_merge_ci",
+        "updated_at": "2026-10-22T18:35:49.464Z",
+        "detail": "PR27 merged at dbfb759a51a8ada6c081b058424f08dac2776068 after exact-head tests passed. D1 job_id migration and unique partial index applied/read back. qslc-hei-site deployment 30d8d848d5464523b884eda5921525ee preserves all four bindings and live module bytes exactly match merged source (SHA-256 33e204d58ee4dcdaca4b96a227d363f1d68c1da7125446468fa7e96512fdd194). Anonymous admin access still redirects to Cloudflare Access. Keep MP40 open because no authenticated owner-session command receipt/replay/readback has been executed, and no post-merge GitHub workflow run has appeared yet for the merge SHA."
       },
       "evidence": [
         {
@@ -99,15 +94,54 @@
           "url": "https://github.com/QSLC/Sovereign-QSLC_SSOT/actions/runs/39822544060",
           "summary": "MP-33 verify passed 19/19 Worker tests, 7/7 Python tests and Docker build.",
           "observed_at": "2026-10-22T17:32:28.420Z"
+        },
+        {
+          "type": "merge",
+          "sha": "dbfb759a51a8ada6c081b058424f08dac2776068",
+          "url": "https://github.com/QSLC/Sovereign-QSLC_SSOT/commit/dbfb759a51a8ada6c081b058424f08dac2776068",
+          "summary": "PR27 exact-head guarded squash merge.",
+          "observed_at": "2026-10-22T18:35:49.464Z"
+        },
+        {
+          "type": "database_migration",
+          "provider": "Cloudflare D1",
+          "summary": "command_queue.job_id added; idx_command_queue_job_id verified unique and partial.",
+          "observed_at": "2026-10-22T18:35:49.464Z"
+        },
+        {
+          "type": "deployment",
+          "provider": "Cloudflare Workers",
+          "deployment_id": "30d8d848d5464523b884eda5921525ee",
+          "summary": "Content-only qslc-hei-site deployment; workflow, D1, secret and KV bindings preserved.",
+          "observed_at": "2026-10-22T18:35:49.464Z"
+        },
+        {
+          "type": "deployment_readback",
+          "sha256": "33e204d58ee4dcdaca4b96a227d363f1d68c1da7125446468fa7e96512fdd194",
+          "summary": "Live Worker module exactly matched merged source bytes.",
+          "observed_at": "2026-10-22T18:35:49.464Z"
+        },
+        {
+          "type": "anonymous_denial",
+          "url": "https://admin.qslc-hei.com/",
+          "summary": "Anonymous request redirected to Cloudflare Access login.",
+          "observed_at": "2026-10-22T18:35:49.464Z"
         }
       ],
       "blockers": [
         {
-          "provider": "GitHub / Cloudflare Pages",
-          "operation": "merge PR27 on exact current head",
-          "error": "All substantive build/test/security steps passed, but GitHub check-run state still shows aggregate build in_progress and Cloudflare Pages preview ef080daf-a579-4488-9e64-76644a700016 in_progress even though the workflow run completed success and the Cloudflare preview deployment stage is recorded skipped.",
-          "observed_at": "2026-10-22T17:32:28.420Z",
-          "action": "Re-read exact-head check state on the next run. Merge only after pending checks resolve successfully or neutral; then apply the reviewed additive D1 migration, deploy the merged Worker, and verify owner-session job receipt/readback."
+          "provider": "Cloudflare Access / owner session",
+          "operation": "authenticated durable command receipt and duplicate replay readback",
+          "error": "Connected provider controls expose the Worker secret only as an unreadable secret binding; no authorized owner-session credential is available to execute the positive live request without bypassing Access or inventing a secret.",
+          "observed_at": "2026-10-22T18:35:49.464Z",
+          "action": "Use an authorized owner session or service credential already provisioned through provider controls to submit one harmless uniquely keyed command twice, then verify the same job ID and exactly one command/audit effect."
+        },
+        {
+          "provider": "GitHub Actions",
+          "operation": "post-merge workflow verification",
+          "error": "No workflow run or check-run has appeared yet for merge SHA dbfb759a51a8ada6c081b058424f08dac2776068, despite main resolving to that SHA.",
+          "observed_at": "2026-10-22T18:35:49.464Z",
+          "action": "Re-read merge-SHA workflow/check state on the next run; keep post-merge CI UNKNOWN until a run appears and completes."
         }
       ]
     },
