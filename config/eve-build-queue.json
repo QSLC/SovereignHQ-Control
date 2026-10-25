@@ -148,7 +148,7 @@
     {
       "id": "EVE-FULFILLMENT",
       "priority": 2,
-      "status": "blocked",
+      "status": "in_progress",
       "depends_on": [],
       "repository": "QSLC/Sovereign-QSLC_SSOT",
       "objective": "Complete the existing signed Stripe payment-to-customer-access path using corporate catalog; use isolated fixtures and existing test mode for payment simulation; do not create live charges.",
@@ -158,12 +158,17 @@
         "Billing cancellation and failed payment states are handled",
         "Deployed entitlement readback independently verified"
       ],
-      "attempts": 1,
-      "lease": null,
+      "attempts": 2,
+      "lease": {
+        "owner": "chatgpt-evidence-watch-2026-10-25",
+        "claimed_at": "2026-10-25T15:23:12.422Z",
+        "expires_at": "2026-10-25T16:08:12.422Z",
+        "task_id": "EVE-FULFILLMENT"
+      },
       "checkpoint": {
-        "step": "merged_awaiting_source_event_and_cloudflare_access",
-        "updated_at": "2026-10-21T12:00:00Z",
-        "detail": "PR25 remains merged and post-merge checks passed. Fresh corporate live Stripe read confirms the EVE entitlement webhook is enabled at the existing Pages endpoint for checkout, subscription and invoice lifecycle events, but the account has zero checkout.session.completed events. Cloudflare identity still returns MCP -32603 Internal error. No live charge was created, so live activation/readback remains unverified."
+        "step": "lease_claimed_retesting_live_webhook_and_source",
+        "updated_at": "2026-10-25T15:23:12.422Z",
+        "detail": "Rechecked corporate live Stripe and Cloudflare production deployment. Stripe alert reports 49 failed deliveries to legacy pages.dev webhook, first 2026-10-22T04:38:24Z; current Stripe completed checkout events count zero. Investigating source retry semantics and using isolated fixtures only."
       },
       "evidence": [
         {
