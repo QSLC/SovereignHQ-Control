@@ -148,7 +148,7 @@
     {
       "id": "EVE-FULFILLMENT",
       "priority": 2,
-      "status": "in_progress",
+      "status": "blocked",
       "depends_on": [],
       "repository": "QSLC/Sovereign-QSLC_SSOT",
       "objective": "Complete the existing signed Stripe payment-to-customer-access path using corporate catalog; use isolated fixtures and existing test mode for payment simulation; do not create live charges.",
@@ -159,16 +159,11 @@
         "Deployed entitlement readback independently verified"
       ],
       "attempts": 2,
-      "lease": {
-        "owner": "chatgpt-evidence-watch-2026-10-25",
-        "claimed_at": "2026-10-25T15:23:12.422Z",
-        "expires_at": "2026-10-25T16:08:12.422Z",
-        "task_id": "EVE-FULFILLMENT"
-      },
+      "lease": null,
       "checkpoint": {
-        "step": "lease_claimed_retesting_live_webhook_and_source",
-        "updated_at": "2026-10-25T15:23:12.422Z",
-        "detail": "Rechecked corporate live Stripe and Cloudflare production deployment. Stripe alert reports 49 failed deliveries to legacy pages.dev webhook, first 2026-10-22T04:38:24Z; current Stripe completed checkout events count zero. Investigating source retry semantics and using isolated fixtures only."
+        "step": "draft_pr30_ci_passed_waiting_delivery_root_cause_and_owner_authorized_readback",
+        "updated_at": "2026-10-25T15:25:08.474Z",
+        "detail": "Corporate live Stripe account read: 4 enabled webhook endpoints, including apex and legacy pages.dev; no checkout.session.completed events. Provider alert Oct25 reports 49 unsuccessful deliveries to legacy pages.dev webhook since Oct22 04:38 UTC, with retries scheduled to stop Oct31 04:38 UTC. Cloudflare API authentication works and production Pages deployment ca554257... is successful (Oct23), replacing stale Cloudflare auth blocker. Source defect identified: D1 event receipt was saved before KV write; a failed KV write made signed retries return duplicate HTTP 200 without entitlement. Draft PR30 at head 16ffcf0... repairs retry and adds fixture regression. Exact-head GitHub Actions run 40206768858 succeeded including calculator tests, privacy scans, lint and build; artifact upload skipped for PR. No merge/deploy, no live checkout, no authenticated owner session, and no independently verified post-release entitlement readback."
       },
       "evidence": [
         {
@@ -208,15 +203,48 @@
           "account": "corporate live account",
           "summary": "EVE entitlement webhook enabled at sovereign-qslc-ssot.pages.dev for checkout/subscription/invoice lifecycle events; checkout.session.completed event count=0.",
           "observed_at": "2026-10-21T12:00:00Z"
+        },
+        {
+          "type": "source_fix_draft_pr",
+          "sha": "16ffcf0aeab89a947b9f1ad831b41f5936d39c3e",
+          "url": "https://github.com/QSLC/Sovereign-QSLC_SSOT/pull/30",
+          "summary": "KV entitlement repair on signed duplicate Stripe retry; draft PR not deployed",
+          "observed_at": "2026-10-25T15:25:08.474Z"
+        },
+        {
+          "type": "current_head_ci",
+          "sha": "16ffcf0aeab89a947b9f1ad831b41f5936d39c3e",
+          "url": "https://github.com/QSLC/Sovereign-QSLC_SSOT/actions/runs/40206768858",
+          "summary": "Run completed success; calculator:test, privacy, lint and build passed; deploy artifact upload skipped on PR",
+          "observed_at": "2026-10-25T15:25:08.474Z"
+        },
+        {
+          "type": "cloudflare_pages",
+          "url": "https://qslc-hei.com",
+          "summary": "Cloudflare authenticated project read; production deployment ca554257-f647-4566-8329-b77efd8dcdaa completed success 2026-10-23, not proof of webhook delivery",
+          "observed_at": "2026-10-25T15:25:08.474Z"
+        },
+        {
+          "type": "stripe_webhook_health",
+          "url": "https://sovereign-qslc-ssot.pages.dev/api/entitlement/stripe-webhook",
+          "summary": "Provider alert reports 49 failed deliveries since 2026-10-22T04:38:24Z; retry cutoff 2026-10-31T04:38:24Z; four endpoints enabled; no checkout.session.completed events observed",
+          "observed_at": "2026-10-25T15:25:08.474Z"
         }
       ],
       "blockers": [
         {
-          "provider": "Cloudflare/Stripe live boundary",
-          "operation": "signed paid-event fulfillment and exact entitlement readback",
-          "error": "Cloudflare whoami still returns MCP -32603 Internal error. Corporate live Stripe is readable, but there are no checkout.session.completed events available for a source-backed activation replay.",
-          "observed_at": "2026-10-21T12:00:00Z",
-          "action": "Do not create a live test charge. Retry Cloudflare after connection recovery; when an authorized real corporate checkout completes, verify one durable event receipt, one entitlement, and exact tenant-scoped readback."
+          "provider": "Stripe live webhook delivery",
+          "operation": "recover failing legacy pages.dev delivery",
+          "error": "49 delivery failures reported, exact HTTP/network error not exposed in email",
+          "observed_at": "2026-10-25T15:25:08.474Z",
+          "action": "Inspect endpoint-specific Stripe delivery logs and Cloudflare Pages Functions logs; repair and confirm Stripe 2xx acknowledgements before 2026-10-31T04:38:24Z. Do not disable endpoints without proving no active dependency."
+        },
+        {
+          "provider": "owner-authorized live fulfillment",
+          "operation": "exact signed paid-event entitlement readback",
+          "error": "No source-backed live completed checkout event or authenticated owner session; PR30 not merged/deployed",
+          "observed_at": "2026-10-25T15:25:08.474Z",
+          "action": "After exact-head approval and authorized deployment, verify a genuine event, one durable D1 receipt, one tenant-scoped KV entitlement and exact owner/customer readback; no fabricated payments."
         }
       ]
     },
