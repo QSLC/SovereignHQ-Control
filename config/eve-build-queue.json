@@ -25,7 +25,7 @@
     {
       "id": "EVE-MP40",
       "priority": 1,
-      "status": "in_progress",
+      "status": "blocked",
       "depends_on": [],
       "repository": "QSLC/Sovereign-QSLC_SSOT",
       "objective": "Finish and verify existing owner-authorized durable command intake and SSOT writes; inspect current MP40 implementation first.",
@@ -36,16 +36,11 @@
         "Relevant tests and deployed source match"
       ],
       "attempts": 1,
-      "lease": {
-        "owner": "QSLC Daily Evidence Watch",
-        "claimed_at": "2026-10-26T15:19:43.444Z",
-        "expires_at": "2026-10-26T16:04:43.444Z",
-        "task_id": "EVE-MP40"
-      },
+      "lease": null,
       "checkpoint": {
-        "step": "lease_claimed_for_post_merge_ci_and_owner_boundary_recheck",
-        "updated_at": "2026-10-26T15:19:43.444Z",
-        "detail": "PR27 merged at dbfb759a51a8ada6c081b058424f08dac2776068 after exact-head tests passed. D1 job_id migration and unique partial index applied/read back. qslc-hei-site deployment 30d8d848d5464523b884eda5921525ee preserves all four bindings and live module bytes exactly match merged source (SHA-256 33e204d58ee4dcdaca4b96a227d363f1d68c1da7125446468fa7e96512fdd194). Anonymous admin access still redirects to Cloudflare Access. Keep MP40 open because no authenticated owner-session command receipt/replay/readback has been executed, and no post-merge GitHub workflow run has appeared yet for the merge SHA."
+        "step": "post_merge_ci_unverified_owner_session_required",
+        "updated_at": "2026-10-26T15:20:27.646Z",
+        "detail": "2026-10-26 bounded continuation: fetched GitHub merge commit dbfb759a51a8ada6c081b058424f08dac2776068 and independently checked exact-SHA pull-request workflow runs and combined commit statuses; both returned empty. This is CI UNKNOWN, not passing. Cloudflare authenticated Pages production readback: sovereign-qslc-ssot latest production deployment ca554257-f647-4566-8329-b77efd8dcdaa on 2026-10-23 at commit 1e2c735032e1b204e16fe4e720b7f04f2cb4fc01; dashboard latest production 03c4ac5c-ca18-4dbf-9b29-b6ddc0ce92c1. Owner-authorized authenticated durable command receipt/replay readback not performed; no credentials or approved harmless owner session provided. No source modification, no new deploy, no production GREEN claim."
       },
       "evidence": [
         {
@@ -131,6 +126,21 @@
           "url": "https://admin.qslc-hei.com/",
           "summary": "Anonymous request redirected to Cloudflare Access login.",
           "observed_at": "2026-10-22T18:35:49.464Z"
+        },
+        {
+          "type": "post_merge_ci_readback",
+          "sha": "dbfb759a51a8ada6c081b058424f08dac2776068",
+          "summary": "GitHub exact-SHA PR workflow runs=[]; combined statuses=[]; post-merge CI UNKNOWN",
+          "observed_at": "2026-10-26T15:20:27.646Z",
+          "url": "https://github.com/QSLC/Sovereign-QSLC_SSOT/commit/dbfb759a51a8ada6c081b058424f08dac2776068"
+        },
+        {
+          "type": "cloudflare_production_readback",
+          "provider": "Cloudflare Pages",
+          "deployment_id": "ca554257-f647-4566-8329-b77efd8dcdaa",
+          "sha": "1e2c735032e1b204e16fe4e720b7f04f2cb4fc01",
+          "summary": "Production Pages deployment succeeded 2026-10-23; does not verify owner-only MP40 positive command receipt",
+          "observed_at": "2026-10-26T15:20:27.646Z"
         }
       ],
       "blockers": [
