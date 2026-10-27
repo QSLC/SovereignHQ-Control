@@ -163,7 +163,7 @@
     {
       "id": "EVE-FULFILLMENT",
       "priority": 2,
-      "status": "in_progress",
+      "status": "blocked",
       "depends_on": [],
       "repository": "QSLC/Sovereign-QSLC_SSOT",
       "objective": "Complete the existing signed Stripe payment-to-customer-access path using corporate catalog; use isolated fixtures and existing test mode for payment simulation; do not create live charges.",
@@ -174,16 +174,11 @@
         "Deployed entitlement readback independently verified"
       ],
       "attempts": 3,
-      "lease": {
-        "owner": "QSLC Daily Evidence Watch",
-        "id": "eve-fulfillment-20261027-1517",
-        "acquired_at": "2026-10-27T15:17:10Z",
-        "expires_at": "2026-10-27T16:02:10Z"
-      },
+      "lease": null,
       "checkpoint": {
-        "step": "verify_new_merge_and_production_deploy",
-        "updated_at": "2026-10-27T15:17:10Z",
-        "detail": "Bounded read-only continuation after PR #30 merged. Verify exact merged SHA, Cloudflare production deployment, Stripe endpoint state, and independent entitlement health; no live charge or owner-session access."
+        "step": "merged_and_production_deployed_owner_entitlement_readback_unverified",
+        "updated_at": "2026-10-27T15:22:00Z",
+        "detail": "2026-10-27 bounded attempt 3/3: GitHub PR #30 merged at df896110f51dd7a985eae2df2f0dfbdda2104f87; Cloudflare Pages sovereign-qslc-ssot production deployment 6a62f209-cefd-4ddc-92cd-90e4aaa6cce7 succeeded 2026-10-27T11:19:37Z on same SHA. Corporate Stripe live webhook endpoint list reports qslc-hei.com, Pages and Base44 endpoints enabled, but delivery success not proven. Latest 30 checkout sessions show 1 open/unpaid and 29 expired/unpaid; 100 newest Stripe events contained no payment success (partial window, not global no-sales claim). Public https://qslc-hei.com/api/entitlement/health inaccessible to independent web reader, so health UNKNOWN. GitHub exact merge-commit combined statuses and PR-triggered runs returned empty, so CI UNKNOWN. No authorized owner-session or harmless positive paid entitlement receipt; no live charge, secret access, source change, or deployment performed in this task. Blocked on independent signed event delivery + owner-authorized tenant-scoped entitlement readback and exact-head CI evidence. Existing max_attempts=3 now reached; owner must review/reset before another lease."
       },
       "evidence": [
         {
@@ -249,6 +244,19 @@
           "url": "https://sovereign-qslc-ssot.pages.dev/api/entitlement/stripe-webhook",
           "summary": "Provider alert reports 49 failed deliveries since 2026-10-22T04:38:24Z; retry cutoff 2026-10-31T04:38:24Z; four endpoints enabled; no checkout.session.completed events observed",
           "observed_at": "2026-10-25T15:25:08.474Z"
+        },
+        {
+          "type": "merged_source",
+          "sha": "df896110f51dd7a985eae2df2f0dfbdda2104f87",
+          "url": "https://github.com/QSLC/Sovereign-QSLC_SSOT/pull/30",
+          "observed_at": "2026-10-27T15:17:10Z"
+        },
+        {
+          "type": "cloudflare_production_deployment",
+          "deployment_id": "6a62f209-cefd-4ddc-92cd-90e4aaa6cce7",
+          "sha": "df896110f51dd7a985eae2df2f0dfbdda2104f87",
+          "url": "https://6a62f209.sovereign-qslc-ssot.pages.dev",
+          "observed_at": "2026-10-27T15:17:10Z"
         }
       ],
       "blockers": [
