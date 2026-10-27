@@ -163,7 +163,7 @@
     {
       "id": "EVE-FULFILLMENT",
       "priority": 2,
-      "status": "blocked",
+      "status": "in_progress",
       "depends_on": [],
       "repository": "QSLC/Sovereign-QSLC_SSOT",
       "objective": "Complete the existing signed Stripe payment-to-customer-access path using corporate catalog; use isolated fixtures and existing test mode for payment simulation; do not create live charges.",
@@ -173,12 +173,17 @@
         "Billing cancellation and failed payment states are handled",
         "Deployed entitlement readback independently verified"
       ],
-      "attempts": 2,
-      "lease": null,
+      "attempts": 3,
+      "lease": {
+        "owner": "QSLC Daily Evidence Watch",
+        "id": "eve-fulfillment-20261027-1517",
+        "acquired_at": "2026-10-27T15:17:10Z",
+        "expires_at": "2026-10-27T16:02:10Z"
+      },
       "checkpoint": {
-        "step": "draft_pr30_ci_passed_waiting_delivery_root_cause_and_owner_authorized_readback",
-        "updated_at": "2026-10-25T15:25:08.474Z",
-        "detail": "Corporate live Stripe account read: 4 enabled webhook endpoints, including apex and legacy pages.dev; no checkout.session.completed events. Provider alert Oct25 reports 49 unsuccessful deliveries to legacy pages.dev webhook since Oct22 04:38 UTC, with retries scheduled to stop Oct31 04:38 UTC. Cloudflare API authentication works and production Pages deployment ca554257... is successful (Oct23), replacing stale Cloudflare auth blocker. Source defect identified: D1 event receipt was saved before KV write; a failed KV write made signed retries return duplicate HTTP 200 without entitlement. Draft PR30 at head 16ffcf0... repairs retry and adds fixture regression. Exact-head GitHub Actions run 40206768858 succeeded including calculator tests, privacy scans, lint and build; artifact upload skipped for PR. No merge/deploy, no live checkout, no authenticated owner session, and no independently verified post-release entitlement readback."
+        "step": "verify_new_merge_and_production_deploy",
+        "updated_at": "2026-10-27T15:17:10Z",
+        "detail": "Bounded read-only continuation after PR #30 merged. Verify exact merged SHA, Cloudflare production deployment, Stripe endpoint state, and independent entitlement health; no live charge or owner-session access."
       },
       "evidence": [
         {
