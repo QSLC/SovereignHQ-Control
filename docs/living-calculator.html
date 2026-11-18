@@ -51,7 +51,7 @@
       <h1>QSLC Living Calculator</h1>
       <div class="sub">Quantum Sovereign Logistics Corp · SovereignHQ Control Plane · verified data only</div>
     </div>
-    <div class="live"><span class="dot"></span>LIVE · synced 2026-11-17</div>
+    <div class="live"><span class="dot"></span>LIVE · synced 2026-11-18</div>
   </header>
 
   <div style="border-radius:14px;overflow:hidden;border:1px solid var(--line);margin-bottom:22px">
@@ -72,7 +72,7 @@
       <div class="metric-row"><span>Billable</span><span>30 hrs</span></div>
       <div class="metric-row"><span>Non-billable / admin</span><span>2 hrs</span></div>
       <div class="metric-row"><span>Time entries</span><span>9</span></div>
-      <div style="margin-top:8px"><span class="pill warn">Last entry Oct 8 (40 days)</span></div>
+      <div style="margin-top:8px"><span class="pill warn">Last entry Oct 8 (41 days)</span></div>
     </div>
     <div class="card"><h3>📈 Sales</h3>
       <div class="big">0</div>
@@ -163,7 +163,7 @@
       <tr><td>Jul 26</td><td>Backend function + workflow build - billing automation</td><td class="num">4</td><td class="num">$300</td><td><span class="pill good">Billable</span></td></tr>
       <tr><td>Jul 15</td><td>Financial document analysis - Paychex/USPTO/Navy Federal</td><td class="num">6</td><td class="num">$450</td><td><span class="pill good">Billable</span></td></tr>
       <tr><td>Jul 3</td><td>Dashboard development - QSLC Command Center</td><td class="num">8</td><td class="num">$600</td><td><span class="pill good">Billable</span></td></tr>
-      <tr><td colspan="5" style="color:var(--dim);font-size:.78rem;padding-top:10px">No time was logged on Nov 17. Existing records unchanged.</td></tr>
+      <tr><td colspan="5" style="color:var(--dim);font-size:.78rem;padding-top:10px">No time was logged on Nov 18. Existing records unchanged.</td></tr>
     </table>
     </div>
   </div>
@@ -178,7 +178,7 @@
 const css=getComputedStyle(document.documentElement);
 const cAcc=css.getPropertyValue('--acc').trim(),cGood=css.getPropertyValue('--good').trim(),cPurple=css.getPropertyValue('--purple').trim(),cDim=css.getPropertyValue('--dim').trim();
 if(window.Chart){
-  new Chart(document.getElementById('chartCumulative'),{type:'line',data:{labels:["Jul 3","Jul 28","Aug 31","Oct 4","Oct 8","Nov 17"],datasets:[{label:'Cumulative billed ($)',data:[0,1575,2025,2025,2250,2250],borderColor:cGood,backgroundColor:'rgba(52,211,153,.12)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:cGood}]},
+  new Chart(document.getElementById('chartCumulative'),{type:'line',data:{labels:["Jul 3","Jul 28","Aug 31","Oct 4","Oct 8","Nov 18"],datasets:[{label:'Cumulative billed ($)',data:[0,1575,2025,2025,2250,2250],borderColor:cGood,backgroundColor:'rgba(52,211,153,.12)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:cGood}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:cDim}}},scales:{y:{ticks:{color:cDim},grid:{color:'rgba(31,42,68,.5)'}},x:{ticks:{color:cDim},grid:{display:false}}}}});
   new Chart(document.getElementById('chartEvidence'),{type:'doughnut',data:{labels:['Verified (2)','Rejected (2)','Escalated (1)','Pending (4)'],datasets:[{data:[2,2,1,4],backgroundColor:[cGood,'#f87171',cPurple,cDim],borderWidth:0}]},
     options:{responsive:true,maintainAspectRatio:false,cutout:'58%',plugins:{legend:{position:'bottom',labels:{color:cDim}}}}});
